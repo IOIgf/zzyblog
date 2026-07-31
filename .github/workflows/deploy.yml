@@ -3,27 +3,30 @@ name: Deploy Hexo Blog
 on:
   push:
     branches:
-      - main  # 或你的默认分支名
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v5   # 1. 升级到 v5
+        uses: actions/checkout@v5
 
       - name: Download landscape theme
         run: git clone https://github.com/hexojs/hexo-theme-landscape.git themes/landscape
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5   # 2. 升级到 v5
+        uses: actions/setup-node@v5
         with:
-          node-version: '18'
-	  - name: Setup Pandoc
+          node-version: '20'
+
+      # 安装 Pandoc（解决 hexo-renderer-pandoc 找不到 pandoc 的问题）
+      - name: Setup Pandoc
         uses: r-lib/actions/setup-pandoc@v2
-  	    with:
-    	  pandoc-version: '2.19.2' # 推荐指定一个稳定版本
+        with:
+          pandoc-version: '2.19.2'
+
       - name: Install dependencies
         run: npm install
 
@@ -36,3 +39,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+          force: true
