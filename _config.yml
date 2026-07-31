@@ -98,9 +98,17 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: fluid
 
+# Markdown-it ≈‰÷√
 markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '°∞°±°Æ°Ø'
   plugins:
-    - "@traptitech/markdown-it-katex"
+    - markdown-it-mathjax
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
