@@ -3,7 +3,7 @@ name: Deploy Hexo Blog
 on:
   push:
     branches:
-      - main  # 如果你的默认分支是 master，请把 main 改成 master
+      - main  # 或你的默认分支名
 
 jobs:
   build-and-deploy:
@@ -11,14 +11,13 @@ jobs:
     
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5   # 1. 升级到 v5
 
-      # 因为你的仓库里没有 landscape 主题，这里自动下载它
       - name: Download landscape theme
         run: git clone https://github.com/hexojs/hexo-theme-landscape.git themes/landscape
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5   # 2. 升级到 v5
         with:
           node-version: '18'
 
@@ -26,11 +25,11 @@ jobs:
         run: npm install
 
       - name: Generate static files
-        run: npx hexo generate
+        run: npx hexo generate   # 3. 使用 npx
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: gh-pages  # 静态文件推送到 gh-pages 分支
+          publish_branch: gh-pages
