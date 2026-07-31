@@ -20,7 +20,10 @@ jobs:
         uses: actions/setup-node@v5   # 2. 升级到 v5
         with:
           node-version: '18'
-
+	  - name: Setup Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+  	    with:
+    	  pandoc-version: '2.19.2' # 推荐指定一个稳定版本
       - name: Install dependencies
         run: npm install
 
