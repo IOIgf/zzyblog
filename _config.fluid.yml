@@ -565,6 +565,7 @@ index:
   post_sticky:
     enable: true
     icon: "iconfont icon-top"
+  description: '一个专注于分享算法、编程和思考的个人博客，欢迎交流。'
 
 
 #---------------------------
@@ -1153,3 +1154,6 @@ static_prefix:
   hint: https://lib.baomitu.com/hint.css/2.7.0/
 
   moment: https://lib.baomitu.com/moment.js/2.29.4/
+
+seo:
+  description: '一位算法爱好者的学习笔记与生活杂谈'
