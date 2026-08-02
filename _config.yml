@@ -130,3 +130,6 @@ robotstxt:
   allow:
     - /
   sitemap: /sitemap.xml[reference:10]
+
+skip_render:
+  - google*.html       # 匹配所有 google 开头的 html 文件
