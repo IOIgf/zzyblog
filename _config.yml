@@ -137,4 +137,5 @@ inject:
   head:
     - _inject/head.ejs
 
-
+head:
+  - '<meta name="description" content="Milk_Dragon 的个人博客 - 分享算法、编程和思考">'
