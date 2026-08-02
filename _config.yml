@@ -118,3 +118,8 @@ deploy:
   branch: main
   url: https://IOIgf.github.io/
 
+# Õ¾µãµØÍ¼
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
