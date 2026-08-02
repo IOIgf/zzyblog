@@ -29,6 +29,8 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - google*.html
+  - baidu*.html
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -131,5 +133,3 @@ robotstxt:
     - /
   sitemap: /sitemap.xml[reference:10]
 
-skip_render:
-  - google*.html       # 匹配所有 google 开头的 html 文件
