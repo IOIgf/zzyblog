@@ -1,9 +1,1 @@
-<% if (page.description) { %>
-  <meta name="description" content="<%= page.description %>">
-<% } else if (theme.seo && theme.seo.description) { %>
-  <meta name="description" content="<%= theme.seo.description %>">
-<% } else if (config.description) { %>
-  <meta name="description" content="<%= config.description %>">
-<% } else { %>
-  <meta name="description" content="<%= config.title %>">
-<% } %>
+<meta name="description" content="<%= page.description || theme.seo?.description || config.description || 'Milk_Dragon 的个人博客' %>">
