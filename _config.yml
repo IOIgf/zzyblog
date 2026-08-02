@@ -133,3 +133,7 @@ robotstxt:
     - /
   sitemap: /sitemap.xml[reference:10]
 
+inject:
+  head:
+    - _inject/head.ejs
+
