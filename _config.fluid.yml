@@ -948,6 +948,7 @@ archive:
   banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
+  description: '博客文章归档 - 按时间顺序排列所有文章'
 
 
 #---------------------------
@@ -977,6 +978,7 @@ category:
   # 单个分类中折叠展示文章数的最大值，超过限制会显示 More，0 则不限制
   # The maximum number of posts in a single category. If the limit is exceeded, it will be displayed More. If 0 no limit
   post_limit: 10
+  description: '按分类浏览文章 - 结构清晰的阅读体验'
 
 
 #---------------------------
@@ -994,6 +996,7 @@ tag:
     unit: px
     start_color: "#BBBBEE"
     end_color: "#337ab7"
+  description: '按标签浏览文章 - 快速找到感兴趣的话题'
 
 
 #---------------------------
