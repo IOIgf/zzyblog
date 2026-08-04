@@ -131,5 +131,5 @@ robotstxt:
   useragent: "*"
   allow:
     - /
-  sitemap: /sitemap.xml[reference:10]
+  sitemap: https://orangeoi.qzz.io/sitemap.xml
 
