@@ -133,3 +133,8 @@ robotstxt:
     - /
   sitemap: https://orangeoi.qzz.io/sitemap.xml
 
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
