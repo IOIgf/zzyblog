@@ -138,3 +138,9 @@ search:
   field: post
   format: html
   limit: 10000
+  
+# config of hexo-renderer-pandoc
+pandoc:
+  args:
+    - --mathjax
+
