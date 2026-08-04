@@ -122,9 +122,9 @@ deploy:
 
 # Õ¾µãµØÍ¼
 sitemap:
-  path: sitemap.txt
+  path: sitemap.xml
 baidusitemap:
-  path: baidusitemap.txt
+  path: baidusitemap.xml
 
 # robots.txt
 robotstxt:
