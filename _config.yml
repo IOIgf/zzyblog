@@ -126,3 +126,21 @@ search:
   field: post
   format: html
   limit: 10000
+  
+# Markdown-it 配置
+markdown:
+  render:
+    html: true          # 允许 HTML 标签
+    xhtmlOut: false     # 不使用 XHTML 输出
+    breaks: false       # 换行符不转换为 <br>
+    linkify: true       # 自动将 URL 转为链接
+    typographer: true   # 启用智能引号等排版优化
+    quotes: '“”‘’'      # 自定义引号样式
+  plugins:
+    - markdown-it-mathjax3   # 启用 MathJax 插件
+  anchors:
+    level: 2           # 标题锚点层级
+    collisionSuffix: '' # 重复标题的后缀
+    permalink: false    # 是否显示永久链接
+    permalinkClass: 'header-anchor'
+    permalinkSymbol: ''
