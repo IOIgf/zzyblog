@@ -368,6 +368,9 @@ body_scrollbar:
 codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    light: vs
+    dark: vs
   prism:
     light: prism-one-light
     dark: prism-one-dark
@@ -381,7 +384,7 @@ codeblock:
     enable: false
     height: 500
   # Display language name
-  language: true
+  language: false
 
 back2top:
   enable: true
