@@ -56,8 +56,8 @@ prismjs:
   preprocess: true
   line_number: true
   tab_replace: '    '
-  theme: prismjs-one-light
-  theme_dark: prismjs-one-dark
+  theme: one-light
+  theme_dark: one-dark
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -138,6 +138,7 @@ markdown:
     linkify: true       # 自动将 URL 转为链接
     typographer: true   # 启用智能引号等排版优化
     quotes: '“”‘’'      # 自定义引号样式
+  highlight: auto
   plugins:
     # - markdown-it-mathjax3   # 启用 MathJax 插件
   anchors:
