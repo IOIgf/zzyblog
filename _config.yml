@@ -137,7 +137,7 @@ markdown:
     typographer: true   # 启用智能引号等排版优化
     quotes: '“”‘’'      # 自定义引号样式
   plugins:
-    - markdown-it-mathjax3   # 启用 MathJax 插件
+    # - markdown-it-mathjax3   # 启用 MathJax 插件
   anchors:
     level: 2           # 标题锚点层级
     collisionSuffix: '' # 重复标题的后缀
