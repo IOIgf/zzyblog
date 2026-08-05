@@ -368,12 +368,9 @@ body_scrollbar:
 codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
-  theme:
-    light: vs
-    dark: vs
   prism:
-    light: prism-vs
-    dark: prism-vs
+    light: prism-one-light
+    dark: prism-one-dark
   # Add copy button on codeblock
   copy_button:
     enable: true
@@ -384,7 +381,7 @@ codeblock:
     enable: false
     height: 500
   # Display language name
-  language: false
+  language: true
 
 back2top:
   enable: true
