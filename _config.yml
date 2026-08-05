@@ -98,7 +98,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: cupertino
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -121,11 +121,11 @@ robotstxt:
     - /
   sitemap: https://orangeoi.qzz.io/sitemap.xml
 
-#search:
-#  path: search.xml
-#  field: post
-#  format: html
-#  limit: 10000
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
   
 # Markdown-it ≈‰÷√
 markdown:
