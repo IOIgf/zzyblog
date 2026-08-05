@@ -468,7 +468,7 @@ font:
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family: 'Fira Code', monospace
+    family: 'Fira Code, monospace'
 
 
 # ---------------------------------------------------------------
