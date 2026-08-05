@@ -1,3 +1,13 @@
 .post-block {
     border-radius: 10px !important;
 }
+// 强制所有代码块使用 Fira Code
+code, kbd, pre, .highlight, .codeblock, figure.highlight,
+code[class*="language-"], pre[class*="language-"] {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+}
+
+// 针对行内代码
+.post-body code:not([class*="language-"]) {
+  font-family: 'Fira Code', 'Consolas', monospace !important;
+}
