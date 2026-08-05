@@ -12,6 +12,7 @@
     "version": "7.3.0"
   },
   "dependencies": {
+    "@jiangtj/hexo-patch-load-highlight-style": "^1.2.0",
     "axios": "^1.19.0",
     "hexo": "^7.0.0",
     "hexo-ai-summary-liushen": "^2.0.0",
