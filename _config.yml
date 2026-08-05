@@ -98,19 +98,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: next
-
-# Markdown-it ≈‰÷√
-markdown:
-  render:
-    html: true
-    xhtmlOut: false
-    breaks: true
-    linkify: true
-    typographer: true
-    quotes: '°∞°±°Æ°Ø'
-  plugins:
-    - markdown-it-mathjax
+theme: solitude
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
