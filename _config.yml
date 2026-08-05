@@ -138,9 +138,13 @@ search:
   field: post
   format: html
   limit: 10000
-  
-# config of hexo-renderer-pandoc
-pandoc:
-  args:
-    - --mathjax
+
+kramed:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
 
