@@ -1,2 +1,23 @@
-$border-radius-inner     = 10px 10px 10px 10px;
-$border-radius           = 10px;
+// 暗色模式自定义颜色
+if (hexo-config('darkmode')) {
+  :root {
+    --body-bg-color: #0d1117;
+    --content-bg-color: #161b22;
+    --card-bg-color: #1c2333;
+    --text-color: #e6edf3;
+    --blockquote-color: #8b949e;
+    --link-color: #58a6ff;
+    --link-hover-color: #1f6feb;
+    --brand-color: #f0f6fc;
+    --brand-hover-color: #58a6ff;
+    --table-row-odd-bg-color: #161b22;
+    --table-row-hover-bg-color: #1c2333;
+    --menu-item-bg-color: #161b22;
+    --btn-default-bg: #21262d;
+    --btn-default-color: #c9d1d9;
+    --btn-default-border-color: #30363d;
+    --highlight-background: #0d1117;
+    --highlight-foreground: #e6edf3;
+    --highlight-gutter-bg-color: #161b22;
+  }
+}
