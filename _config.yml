@@ -149,7 +149,7 @@ aisummary:
   # 基本控制
   enable: true                 # 是否启用插件[reference:11]
   cover_all: false             # 是否覆盖已有摘要，默认只生成缺失的[reference:12]
-  summary_field: summary       # 摘要写入的字段名，谨慎修改[reference:13]
+  summary_field: description       # 摘要写入的字段名，谨慎修改[reference:13]
   logger: 1                    # 日志等级：0=仅错误，1=错误+预览，2=全部调试[reference:14]
 
   # AI 接口配置

@@ -2,7 +2,6 @@
 title: ST表&RMQ
 date: 2026-07-31 19:04:59
 tags: [算法]
-description: ST表&RMQ
 ---
 
 ### ST表&RMQ
