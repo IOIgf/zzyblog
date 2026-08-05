@@ -13,7 +13,9 @@
   },
   "dependencies": {
     "@traptitech/markdown-it-katex": "^3.6.0",
+    "axios": "^1.19.0",
     "hexo": "^7.0.0",
+    "hexo-ai-summary-liushen": "^2.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
     "hexo-generator-baidu-sitemap": "^0.1.9",
@@ -34,6 +36,8 @@
     "hexo-word-counter": "^0.3.0-rc.1",
     "markdown-it-katex": "^2.0.3",
     "markdown-it-mathjax": "^2.0.0",
-    "markdown-it-mathjax3": "^5.2.0"
+    "markdown-it-mathjax3": "^5.2.0",
+    "node-fetch": "^3.3.2",
+    "p-limit": "^7.3.1"
   }
 }
