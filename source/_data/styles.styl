@@ -1,22 +1,5 @@
-// 文章卡片圆角
 .post-block {
-  border-radius: 12px !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
-  transition: box-shadow 0.3s ease !important;
-}
-
-.post-block:hover {
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
-}
-
-// 侧边栏卡片圆角
-.sidebar-inner {
-  border-radius: 12px !important;
-}
-
-// 代码块圆角
-.highlight {
-  border-radius: 8px !important;
+    border-radius: 10px !important;
 }
 // 强制所有代码块使用 Fira Code
 code, kbd, pre, .highlight, .codeblock, figure.highlight,
@@ -27,32 +10,4 @@ code[class*="language-"], pre[class*="language-"] {
 // 针对行内代码
 .post-body code:not([class*="language-"]) {
   font-family: 'Fira Code', 'Consolas', monospace !important;
-}
-.post-title {
-  font-weight: 700 !important;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-// TOC 列表样式
-.post-toc .nav .nav-child {
-  border-left: 2px solid #667eea;
-  padding-left: 12px;
-  margin-left: 4px;
-}
-
-.post-toc .nav .active > a {
-  color: #667eea !important;
-  font-weight: 600;
-}
-
-.post-toc .nav a {
-  transition: all 0.2s;
-  padding: 4px 0;
-}
-
-.post-toc .nav a:hover {
-  color: #667eea !important;
-  transform: translateX(4px);
 }
