@@ -37,6 +37,6 @@
     "hexo-theme-stellar": "^1.33.1",
     "hexo-word-counter": "^0.3.0-rc.1",
     "node-fetch": "^3.3.2",
-    "p-limit": "^7.3.1"
+    "p-limit": "^7.3.3"
   }
 }
