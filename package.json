@@ -34,7 +34,7 @@
     "hexo-theme-cupertino": "^2.4.4",
     "hexo-theme-landscape": "^1.0.0",
     "hexo-theme-next": "^8.29.0",
-    "hexo-theme-stellar": "^1.33.1",
+    "hexo-theme-stellar": "^2.0.0",
     "hexo-word-counter": "^0.3.0-rc.1",
     "node-fetch": "^3.3.2",
     "p-limit": "^7.3.1"
