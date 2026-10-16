@@ -14,7 +14,7 @@
   "dependencies": {
     "@jiangtj/hexo-patch-load-highlight-style": "^1.2.0",
     "axios": "^1.19.0",
-    "hexo": "^7.0.0",
+    "hexo": "^8.1.2",
     "hexo-ai-summary-liushen": "^2.0.0",
     "hexo-deployer-git": "^4.0.0",
     "hexo-generator-archive": "^2.0.0",
