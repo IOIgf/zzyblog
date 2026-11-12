@@ -675,7 +675,8 @@ comments:
   # Available values: tabs | buttons
   style: tabs
   # Choose a comment system to be displayed by default.
-  # Available values: disqus | disqusjs | livere | gitalk | utterances | isso
+  # Available values: disqus | disqusjs | livere | utterances | isso
+  # Giscus is injected by the hexo-next-giscus plugin (see below).
   active:
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
@@ -686,8 +687,6 @@ comments:
     #disqus:
     #  text: Load Disqus
     #  order: -1
-    #gitalk:
-    #  order: -2
 
 # Disqus
 # For more information: https://disqus.com
@@ -712,26 +711,31 @@ disqusjs:
 # You can get your uid from https://livere.com/insight/myCode (General web site)
 livere_uid: # <your_uid>
 
-# Gitalk
-# For more information: https://gitalk.github.io
-gitalk:
+# Giscus
+# Powered by GitHub Discussions, provided by hexo-next-giscus
+# For more information: https://giscus.app
+giscus:
   enable: true
-  github_id: IOIgf
-  repo: blogtalk
-  client_id: Ov23litfkbZRjs3E4ov1
-  client_secret: 6cb516029a7be6b2a71e1708afbe98a514dd5fc8
-  admin_user: IOIgf
-  distraction_free_mode: true # Facebook-like distraction free mode
-  # When the official proxy is not available, you can change it to your own proxy address
-  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy address
-  # Gitalk's display language depends on user's browser or system environment
-  # If you want everyone visiting your site to see a uniform language, you can set a force language value
-  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
-  language: zh-CN
-  # If you want to customize the content of the initialized Issue, please edit the body parameter.
-  # For example:
-  # body: Comments for post ${title}, see ${url}
-  body:
+  repo: IOIgf/blogtalk
+  repo_id: R_kgDOTp2CeQ
+  category: Announcements
+  category_id: DIC_kwDOTp2Cec4DCbcP
+  # Available values: pathname | url | title | og:title
+  mapping: pathname
+  # Available values: 0 | 1
+  strict: 0
+  # Available values: 0 | 1
+  reactions_enabled: 1
+  # Available values: 0 | 1
+  emit_metadata: 0
+  # Place the comment box above the comments
+  input_position: bottom
+  # Available values: light | dark | preferred_color_scheme | ...
+  theme: preferred_color_scheme
+  # Available values: en | zh-CN
+  lang: zh-CN
+  # Load the comments lazily
+  loading: lazy
 
 # Utterances
 # For more information: https://utteranc.es
