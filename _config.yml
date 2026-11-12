@@ -102,13 +102,37 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
+# 提交链接到搜索引擎
+# 文档: https://cjh0613.com/20200603HexoSubmitUrlsToSearchEngine.html
+hexo_submit_urls_to_search_engine:
+  submit_condition: count  # count | period (目前只支持 count)
+  count: 10                # 每次提交最新 10 条链接
+  period: 900              # period 模式下的时间窗口（秒）
+  google: 0                # 1=提交, 0=不提交
+  bing: 1                  # 1=提交, 0=不提交
+  baidu: 1                 # 1=提交, 0=不提交
+  txt_path: submit_urls.txt  # 生成的链接文件路径（相对于 public/）
+  baidu_host: https://ccbserver.qzz.io     # 百度站长平台已验证的域名
+  baidu_token: 0           # 设为 0 则读取环境变量 BAIDU_TOKEN
+  bing_host: https://ccbserver.qzz.io      # 必应站长平台已验证的域名
+  bing_token: 0            # 设为 0 则读取环境变量 BING_TOKEN
+  google_host: https://ccbserver.qzz.io    # Google Search Console 已验证的域名
+  google_key_file: google-service-account.json  # 服务账号 JSON（根目录），不要提交到公开仓库
+  google_proxy: 0          # 代理，格式如 http://127.0.0.1:7890
+  replace: 0               # 是否替换链接前缀
+  find_what: http://ccbserver.qzz.io
+  replace_with: https://ccbserver.qzz.io
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: git
-  repo: git@github.com:IOIgf/zzyblog.git
-  branch: gh-pages
-  url: https://ccbserver.qzz.io/
+  - type: git
+    repo: git@github.com:IOIgf/zzyblog.git
+    branch: gh-pages
+    url: https://ccbserver.qzz.io/
+  - type: cjh_baidu_url_submitter
+  - type: cjh_bing_url_submitter
+  - type: cjh_google_url_submitter
 
 # 站点地图
 sitemap:
