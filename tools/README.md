@@ -56,17 +56,77 @@ published: false
 
 Hexo 不会生成 `published: false` 的文章，等写完后改成 `published: true` 或删掉这一行，下一次自动发布后才会公开。
 
+## 认证配置（重要）
+
+GitHub 已经不支持用账号密码推送。如果 `git push` 时提示：
+
+```text
+Password authentication is not supported for Git operations.
+```
+
+需要用 **Personal Access Token（PAT）** 或 **SSH** 二选一。
+
+### 方式 A：PAT（最简单）
+
+1. 打开 https://github.com/settings/tokens
+2. 点 `Generate new token`，勾选 `repo`（fine-grained token 则给 `IOIgf/zzyblog` 的 `Contents: Read and write`）
+3. 生成后复制 `ghp_...` 或 `github_pat_...`
+4. 在仓库目录执行一次，让 Git 记住凭据：
+
+```bash
+git config --global credential.helper manager
+```
+
+5. 重新发布。提示输入时：
+   - `Username`: `IOIgf`
+   - `Password`: 粘贴刚才的 token（输入时不会显示字符）
+
+如果 `manager` 不可用，改用：
+
+```bash
+git config --global credential.helper store
+```
+
+这会把 token 明文保存在 `%USERPROFILE%\.git-credentials`，仅建议在自己的电脑上使用。
+
+### 方式 B：SSH
+
+1. 生成密钥（如果已经有 `%USERPROFILE%\.ssh\id_ed25519.pub` 可跳过）：
+
+```bash
+ssh-keygen -t ed25519 -C "zzyblog"
+```
+
+2. 用记事本打开 `%USERPROFILE%\.ssh\id_ed25519.pub`，复制全部内容
+3. 添加到 https://github.com/settings/keys
+4. 把仓库地址改成 SSH：
+
+```bash
+git remote set-url origin git@github.com:IOIgf/zzyblog.git
+ssh -T git@github.com
+```
+
+看到 `Hi IOIgf!` 就表示成功。
+
 ## 常见问题
 
 **push 被拒绝**
 
-说明 GitHub 上有新提交，先执行：
+如果提示 `non-fast-forward` 或 `rejected`，说明 GitHub 上有新提交，先执行：
 
 ```bash
 git pull --rebase
 ```
 
 再重新发布。
+
+**提示 Password authentication is not supported**
+
+按上面的「认证配置」设置 PAT 或 SSH。
+
+**本地已经有 commit 但 push 失败了**
+
+重新双击 `publish.bat` 即可，脚本会自动推送未推送的提交，不会重复提交。
 
 **只想看看会提交什么**
 

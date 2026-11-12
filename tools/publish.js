@@ -38,32 +38,61 @@ function log(...args) {
   console.log('[publish]', ...args);
 }
 
+function unpushedCount() {
+  try {
+    return Number(git(['rev-list', '--count', `origin/${branch}..HEAD`]).trim()) || 0;
+  } catch {
+    return 0;
+  }
+}
+
 function publish(reason) {
   try {
     git(['add', 'source']);
     const changes = git(['status', '--porcelain', '--', 'source']).trim();
+    const pending = unpushedCount();
 
-    if (!changes) {
-      log('没有需要提交的内容');
+    if (!changes && pending === 0) {
+      log('没有需要提交或推送的内容');
       return false;
     }
 
     if (dryRun) {
-      log('dry-run，以下文件会被提交：');
-      console.log(changes);
+      if (changes) {
+        log('dry-run，以下文件会被提交：');
+        console.log(changes);
+      }
+      if (pending) log(`dry-run，还有 ${pending} 个本地提交没有推送`);
       return true;
     }
 
-    const stamp = new Date().toLocaleString('zh-CN', { hour12: false });
-    const message = `post: ${reason} ${stamp}`;
+    if (changes) {
+      const stamp = new Date().toLocaleString('zh-CN', { hour12: false });
+      const message = `post: ${reason} ${stamp}`;
+      git(['commit', '-m', message], { stdio: 'inherit' });
+      log(`已提交：${message}`);
+    } else {
+      log(`没有新改动，正在推送 ${pending} 个未推送的提交`);
+    }
 
-    git(['commit', '-m', message], { stdio: 'inherit' });
     git(['push', 'origin', branch], { stdio: 'inherit' });
-    log(`已提交并推送：${message}`);
+    log('已推送，Cloudflare Pages 会自动构建');
     return true;
   } catch (error) {
     console.error('[publish] 失败：', error.message);
-    console.error('[publish] 如果 push 被拒绝，请先在仓库目录执行：git pull --rebase');
+
+    let remote = '';
+    try {
+      remote = git(['remote', 'get-url', 'origin']).trim();
+    } catch {
+      // ignore
+    }
+
+    if (remote.startsWith('https://')) {
+      console.error('[publish] GitHub 已不支持用密码推送，请配置 PAT 或改用 SSH，详见 tools/README.md');
+    } else if (/rejected|non-fast-forward/i.test(error.message)) {
+      console.error('[publish] 远程有新提交，请先在仓库目录执行：git pull --rebase');
+    }
     return false;
   }
 }
