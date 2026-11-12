@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ccbserver.qzz.io/sitemap.xml
