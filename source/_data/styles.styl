@@ -11,3 +11,16 @@ code[class*="language-"], pre[class*="language-"] {
 .post-body code:not([class*="language-"]) {
   font-family: 'Fira Code', 'Consolas', monospace !important;
 }
+
+// 暗色模式下去掉 Prism 浅色主题留给运算符/URL 的半透明白色背景
+if (hexo-config('darkmode')) {
+  @media (prefers-color-scheme: dark) {
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string {
+      background: none;
+    }
+  }
+}
