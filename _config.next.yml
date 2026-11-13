@@ -371,9 +371,10 @@ codeblock:
   #theme:
   #  light: vs
   #  dark: vs
-  #prism:
-  #  light: prism-one-light
-  #  dark: prism-one-dark
+  prism:
+    light: prism
+    # VS Code Dark+ (from prism-themes)
+    dark: prism-vsc-dark-plus
   # Add copy button on codeblock
   copy_button:
     enable: true
