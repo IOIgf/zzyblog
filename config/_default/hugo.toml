@@ -1,0 +1,44 @@
+# -------------------------------------------------------------------------------------
+# Hugo Configuration
+# See: https://gohugo.io/configuration/all/
+# -------------------------------------------------------------------------------------
+
+# Website title.
+title = "Milk_Dragon's blog"
+# Hostname (and path) to the root.
+baseURL = "https://ccbserver.qzz.io/"
+# Theme list.
+theme = ["FixIt"]
+# Determines default content language.
+defaultContentLanguage = "zh-cn"
+# Language code.
+locale = "zh-CN"
+# Language name.
+label = "简体中文"
+# Whether to include Chinese/Japanese/Korean.
+hasCJKLanguage = true
+# Timezone local.
+timeZone = "Asia/Shanghai"
+# Copyright description used only for SEO schema.
+copyright = "Milk_Dragon"
+# Whether to use robots.txt.
+enableRobotsTXT = true
+# Whether to use git commit log.
+enableGitInfo = false
+# Whether to use emoji code.
+enableEmoji = true
+# The capitalization rules to follow.
+titleCaseStyle = "none"
+# Whether to capitalize automatic list titles.
+capitalizeListTitles = false
+# The main sections of a site.
+mainSections = ["posts"]
+# Keep the original case and Chinese characters in URLs.
+disablePathToLower = true
+# Generate directory-style URLs like /2026/07/31/post/.
+uglyURLs = false
+# Length of auto-generated summaries (used when <!--more--> is absent).
+summaryLength = 80
+
+[pagination]
+pagerSize = 10

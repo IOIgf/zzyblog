@@ -1,13 +1,14 @@
 # 本地自动发布
 
-适用于 Typora、Markdown 编辑器或任何直接编辑 `source/_posts` 的方式。
-脚本只提交 `source/` 下的内容，不会把 `node_modules/`、`public/` 等一起提交。
+适用于 Typora、Markdown 编辑器或任何直接编辑 `content/posts` 的方式。
+脚本只提交 `content/`、`static/`、`assets/` 下的内容，不会把 `node_modules/`、`public/`、`resources/` 等一起提交。
 
 ## 前置条件
 
 - 已安装 Git 和 Node.js 20+
 - 已把仓库 clone 到电脑上，并能在仓库目录正常执行 `git push`
 - 已执行 `npm install`
+- 已安装 Hugo extended 0.166+（本地预览/构建用）
 
 ## 方式一：写完点一下（推荐）
 
@@ -21,7 +22,8 @@ macOS / Linux：
 它会执行一次：
 
 ```text
-git add source
+node tools/normalize-posts.js
+git add content static assets
 git commit -m "post: publish ..."
 git push origin main
 ```
@@ -37,7 +39,7 @@ macOS / Linux：
 ./watch.sh
 ```
 
-脚本会监听 `source/`，停止修改 30 秒后自动 commit + push。
+脚本会监听 `content/`、`static/`、`assets/`，停止修改 30 秒后自动 commit + push。
 之后你只需要在 Typora 里正常保存，不需要再碰终端。
 
 想改等待时间，可以设置环境变量 `PUBLISH_DELAY`（单位毫秒），例如 60 秒：
@@ -46,29 +48,52 @@ macOS / Linux：
 PUBLISH_DELAY=60000 ./watch.sh
 ```
 
-## 文章标题
+## 文章标题与日期
 
-推荐在 Front Matter 里写标题：
+推荐在 Front Matter 里写标题和日期：
 
 ```yaml
 ---
 title: 论土豆
-date: 2026-11-12 21:00:00
+date: 2026-11-12T21:00:00+08:00
 tags: [随笔]
 ---
 ```
 
-如果完全没写 Front Matter，脚本会自动把正文第一行的 `# 标题` 当作文章标题，并把这个一级标题从正文里去掉，避免和主题标题重复。两者都没有时才会显示“未命名”。
+如果完全没写 Front Matter，发布脚本会自动：
+
+1. 把正文第一行的 `# 标题` 当作文章标题，并把这个一级标题从正文里去掉；
+2. 用发布时间补上 `date`；
+3. 用文件名补上 `slug`，保证 URL 稳定；
+4. 在第一段后面插入 `<!--more-->`，让首页显示摘要。
+
+自动补全只会在发布/构建前运行，文件补全一次后不会反复修改。
 
 ## 草稿建议
 
 自动监听在写作过程中暂停 30 秒就可能提交一次，所以建议草稿在 Front Matter 里加：
 
 ```yaml
-published: false
+draft: true
 ```
 
-Hexo 不会生成 `published: false` 的文章，等写完后改成 `published: true` 或删掉这一行，下一次自动发布后才会公开。
+Hugo 不会生成 `draft: true` 的文章，等写完后改成 `draft: false` 或删掉这一行，下一次自动发布后才会公开。
+
+## 本地预览
+
+```bash
+npm run server
+```
+
+打开 `http://localhost:1313/`。预览会包含草稿（`-D`）。
+
+## 本地构建
+
+```bash
+npm run build
+```
+
+构建结果在 `public/`。Hugo 需要 Dart Sass；仓库的 `sass-embedded` 开发依赖会提供 `sass` 命令。
 
 ## 认证配置（重要）
 

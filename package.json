@@ -1,14 +1,18 @@
 {
-  "name": "hexo-site",
+  "name": "zzyblog",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && hugo --gc --minify --logLevel info",
+    "build:hexo": "hexo generate",
     "clean": "hexo clean",
+    "clean:hugo": "rm -rf public resources",
     "deploy": "hexo deploy",
     "publish": "node tools/publish.js --once",
     "publish:watch": "node tools/publish.js --watch",
-    "server": "hexo server"
+    "server": "hugo server -D --disableFastRender --navigateToChanged --bind 0.0.0.0",
+    "server:hexo": "hexo server",
+    "update:theme": "git submodule update --remote --merge themes/FixIt && git add themes/FixIt && git commit -m \"chore: update FixIt\""
   },
   "hexo": {
     "version": "8.1.2"
@@ -39,5 +43,8 @@
     "hexo-theme-stellar": "^2.0.0",
     "hexo-word-counter": "^0.3.0-rc.1",
     "prism-themes": "^1.9.0"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.108.2"
   }
 }
