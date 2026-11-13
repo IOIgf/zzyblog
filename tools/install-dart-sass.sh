@@ -60,12 +60,13 @@ exec "$(dirname "$0")/dart-sass/sass" "$@"
 WRAPPER
 chmod +x "${INSTALL_DIR}/sass"
 
-# Verify --embedded support
+# Verify --embedded support (just check exit code, not output content)
 echo "[install-dart-sass] Testing --embedded protocol..."
-if printf 'a{color:red}' | "${INSTALL_DIR}/sass" --embedded 2>&1 | grep -q 'a{color:red}'; then
+if printf 'a{color:red}' | "${INSTALL_DIR}/sass" --embedded >/dev/null 2>&1; then
   echo "[install-dart-sass] --embedded protocol works."
 else
-  echo "[install-dart-sass] WARNING: --embedded test failed, but continuing..."
+  echo "[install-dart-sass] ERROR: --embedded protocol test failed" >&2
+  exit 1
 fi
 
 # Version
