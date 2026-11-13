@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && PATH=\"$PWD/node_modules/.bin:$HOME/bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
+    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
     "build:hexo": "hexo generate",
     "clean": "hexo clean",
     "clean:hugo": "rm -rf public resources",
