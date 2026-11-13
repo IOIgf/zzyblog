@@ -1,26 +1,28 @@
+# -- Main Menu --
+
 [[main]]
   name = "主页"
-  page = "/"
+  pageRef = "/"
   weight = 10
 
 [[main]]
   name = "关于"
-  page = "/about/"
+  pageRef = "/about/"
   weight = 20
 
 [[main]]
   name = "标签"
-  page = "/tags/"
+  pageRef = "/tags/"
   weight = 30
 
 [[main]]
   name = "分类"
-  page = "/categories/"
+  pageRef = "/categories/"
   weight = 40
 
 [[main]]
   name = "归档"
-  page = "/posts/"
+  pageRef = "/posts/"
   weight = 50
 
 [[main]]
@@ -34,12 +36,14 @@
   url = "https://github.com/IOIgf"
   weight = 200
 
+# -- Footer Menu --
+
 [[footer]]
   name = "标签"
-  page = "/tags/"
+  pageRef = "/tags/"
   weight = 10
 
 [[footer]]
   name = "分类"
-  page = "/categories/"
+  pageRef = "/categories/"
   weight = 20
