@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Install Hugo 0.169.0 extended on Cloudflare Pages (Ubuntu-based)
-# Cloudflare's build image has Hugo 0.147.x which is too old for FixIt (needs >= 0.166.0)
+# Install Hugo 0.169.0 extended on Cloudflare Pages (no sudo/apt needed)
+# Downloads tar.gz from GitHub Release, extracts binary to ~/bin
 
 HUGO_VERSION="0.169.0"
-HUGO_DEB="hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
-HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_DEB}"
+HUGO_TAR="hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+HUGO_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_TAR}"
 # Fallback mirrors for China / GitHub rate limits
 MIRRORS=(
   "https://gh-proxy.com/${HUGO_URL}"
   "https://ghproxy.net/${HUGO_URL}"
   "https://mirror.ghproxy.com/${HUGO_URL}"
 )
+
+INSTALL_DIR="${HOME}/bin"
+mkdir -p "${INSTALL_DIR}"
+export PATH="${INSTALL_DIR}:${PATH}"
 
 echo "[install-hugo] Installing Hugo ${HUGO_VERSION} extended..."
 
@@ -26,27 +30,27 @@ if command -v hugo >/dev/null 2>&1; then
   echo "[install-hugo] Found Hugo ${CURRENT_VERSION}, replacing with ${HUGO_VERSION}."
 fi
 
-# Install libsass1 dependency (required by Hugo extended)
-apt-get update -qq && apt-get install -y -qq libsass1 >/dev/null 2>&1
-
-# Download Hugo deb
+# Download Hugo tar.gz
 cd /tmp
 for MIRROR in "${MIRRORS[@]}"; do
   echo "[install-hugo] Trying ${MIRROR}..."
-  if wget -q --timeout=30 --tries=2 -O "${HUGO_DEB}" "${MIRROR}"; then
+  if wget -q --timeout=30 --tries=2 -O "${HUGO_TAR}" "${MIRROR}"; then
     echo "[install-hugo] Downloaded from ${MIRROR}"
     break
   fi
 done
 
-if [ ! -f "${HUGO_DEB}" ]; then
+if [ ! -f "${HUGO_TAR}" ]; then
   echo "[install-hugo] ERROR: Failed to download Hugo from all mirrors" >&2
   exit 1
 fi
 
-# Install
-dpkg -i "${HUGO_DEB}" >/dev/null 2>&1
+# Extract hugo binary
+tar -xzf "${HUGO_TAR}" hugo
+chmod +x hugo
+mv hugo "${INSTALL_DIR}/hugo"
 
 # Verify
-hugo version
-echo "[install-hugo] Hugo ${HUGO_VERSION} installed successfully."
+echo "[install-hugo] Hugo version:"
+"${INSTALL_DIR}/hugo" version
+echo "[install-hugo] Hugo ${HUGO_VERSION} installed successfully to ${INSTALL_DIR}."
