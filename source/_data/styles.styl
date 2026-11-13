@@ -22,5 +22,11 @@ if (hexo-config('darkmode')) {
     .style .token.string {
       background: none;
     }
+
+    // 图片保持原亮度，不要默认变暗
+    img,
+    img:hover {
+      opacity: 1;
+    }
   }
 }
