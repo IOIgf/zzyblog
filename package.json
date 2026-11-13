@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && PATH=\"$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
+    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && PATH=\"$PWD/node_modules/.bin:$HOME/bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
     "build:hexo": "hexo generate",
     "clean": "hexo clean",
     "clean:hugo": "rm -rf public resources",
@@ -44,6 +44,6 @@
     "prism-themes": "^1.9.0"
   },
   "devDependencies": {
-    "sass-embedded": "^1.108.2"
+    "sass": "^1.108.2"
   }
 }
