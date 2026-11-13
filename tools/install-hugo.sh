@@ -20,14 +20,14 @@ export PATH="${INSTALL_DIR}:${PATH}"
 
 echo "[install-hugo] Installing Hugo ${HUGO_VERSION} extended..."
 
-# Check if already installed with correct version
-if command -v hugo >/dev/null 2>&1; then
-  CURRENT_VERSION=$(hugo version 2>/dev/null | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+' | head -1 | sed 's/^v//')
+# Check if already installed with correct version (check the target path, not PATH)
+if [ -x "${INSTALL_DIR}/hugo" ]; then
+  CURRENT_VERSION=$("${INSTALL_DIR}/hugo" version 2>/dev/null | grep -oE 'v?[0-9]+\.[0-9]+\.[0-9]+' | head -1 | sed 's/^v//')
   if [ "$CURRENT_VERSION" = "$HUGO_VERSION" ]; then
     echo "[install-hugo] Hugo ${HUGO_VERSION} already installed, skipping."
     exit 0
   fi
-  echo "[install-hugo] Found Hugo ${CURRENT_VERSION}, replacing with ${HUGO_VERSION}."
+  echo "[install-hugo] Found Hugo ${CURRENT_VERSION} at ${INSTALL_DIR}/hugo, replacing with ${HUGO_VERSION}."
 fi
 
 # Download Hugo tar.gz

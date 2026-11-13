@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && npm install --no-audit --no-fund && cd themes/blowfish && npm install --no-audit --no-fund && npx @tailwindcss/cli -c ./tailwind.config.js -i ./assets/css/main.css -o ./assets/css/compiled/main.css --jit && cd ../.. && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
+    "build": "node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && npm install --no-audit --no-fund && cd themes/blowfish && npm install --no-audit --no-fund && npx @tailwindcss/cli -c ./tailwind.config.js -i ./assets/css/main.css -o ./assets/css/compiled/main.css --jit && cd ../.. && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
     "build:hexo": "hexo generate",
     "clean": "hexo clean",
     "clean:hugo": "rm -rf public resources",
@@ -12,7 +12,7 @@
     "publish:watch": "node tools/publish.js --watch",
     "server": "hugo server -D --disableFastRender --navigateToChanged --bind 0.0.0.0",
     "server:hexo": "hexo server",
-    "update:theme": "git submodule update --remote --merge themes/blowfish && git add themes/blowfish && git commit -m \"chore: update Blowfish\""
+    "update:theme": "echo 'TODO: manually update themes/blowfish/'"
   },
   "dependencies": {
     "hexo": "^8.1.2",
