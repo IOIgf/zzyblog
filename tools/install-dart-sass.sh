@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Install Dart Sass 1.108.0 native binary (supports --embedded protocol)
-# Downloads from GitHub releases, extracts to ~/bin
+# The release tarball contains a dart-sass/ directory with sass wrapper + src/dart
 
 SASS_VERSION="1.108.0"
 SASS_TAR="dart-sass-${SASS_VERSION}-linux-x64.tar.gz"
@@ -45,11 +45,20 @@ if [ ! -f "${SASS_TAR}" ]; then
   exit 1
 fi
 
-# Extract sass binary
-tar -xzf "${SASS_TAR}" dart-sass/sass
+# Extract entire dart-sass directory
+tar -xzf "${SASS_TAR}"
+# The tarball extracts to dart-sass/
 chmod +x dart-sass/sass
-mv dart-sass/sass "${INSTALL_DIR}/sass"
-rm -rf dart-sass
+chmod +x dart-sass/src/dart
+# Move the whole directory to ~/bin/dart-sass
+rm -rf "${INSTALL_DIR}/dart-sass"
+mv dart-sass "${INSTALL_DIR}/"
+# Create a wrapper script in ~/bin/sass that points to the dart-sass/sass
+cat > "${INSTALL_DIR}/sass" <<'WRAPPER'
+#!/usr/bin/env bash
+exec "$(dirname "$0")/dart-sass/sass" "$@"
+WRAPPER
+chmod +x "${INSTALL_DIR}/sass"
 
 # Verify --embedded support
 echo "[install-dart-sass] Testing --embedded protocol..."
