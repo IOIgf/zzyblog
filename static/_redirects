@@ -1,0 +1,11 @@
+# Cloudflare Pages redirects for URLs from the old Hexo site.
+/atom.xml /index.xml 301
+
+# Old paginated archive URLs.
+/archives/2026/ /archives/ 301
+/archives/2026/07/ /archives/ 301
+/archives/2026/08/ /archives/ 301
+/archives/2026/11/ /archives/ 301
+
+# The old 404 page.
+/404/ /404.html 301

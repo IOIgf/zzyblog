@@ -1,0 +1,14 @@
+# -------------------------------------------------------------------------------------
+# Permalinks Configuration
+# Keep the exact Hexo URLs: /:year/:month/:day/:slug/
+# -------------------------------------------------------------------------------------
+
+[page]
+posts = "/:year/:month/:day/:slug/"
+
+[section]
+# posts = "/posts/:slugorcontentbasename"
+
+[taxonomy]
+
+[term]

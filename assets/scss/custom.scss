@@ -1,0 +1,113 @@
+// -------------------------------------------------------------------------------------
+// Site custom styles
+// Loaded after FixIt's main CSS, so these rules win without excessive specificity.
+// -------------------------------------------------------------------------------------
+
+// Fira Code everywhere code is rendered.
+code,
+kbd,
+pre,
+.chroma,
+.highlight,
+.codeblock,
+figure.highlight,
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+}
+
+// Scrollbar: keep the old purple gradient thumb.
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5b64ec;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.4) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.4) 75%,
+    transparent 75%,
+    transparent
+  );
+  border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #4a53d6;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+// Text selection: keep the old pink highlight.
+::selection {
+  color: #fff;
+  background-color: #e58a8a;
+}
+
+// Do not dim images in dark mode.
+img {
+  opacity: 1;
+}
+
+// VS Code Dark+ token colors for Chroma (dark mode only).
+@mixin vsc-dark-code {
+  .chroma {
+    color: #d4d4d4;
+
+    .err { color: #f44747; }
+    .k, .kc, .kd, .kn, .kp, .kr, .kt { color: #569cd6; }
+    .n { color: #d4d4d4; }
+    .na { color: #9cdcfe; }
+    .nb, .nc, .no, .nd, .ne, .nl, .nn, .py { color: #4ec9b0; }
+    .nf, .fm { color: #dcdcaa; }
+    .nt { color: #569cd6; }
+    .nv, .vc, .vg, .vi, .vm { color: #9cdcfe; }
+    .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss {
+      color: #ce9178;
+    }
+    .m, .mb, .mf, .mh, .mi, .il, .mo { color: #b5cea8; }
+    .o, .ow { color: #d4d4d4; background: none !important; }
+    .p { color: #d4d4d4; }
+    .c, .ch, .cm, .c1, .cs, .cpf { color: #6a9955; }
+    .cp { color: #569cd6; }
+    .gd { color: #f44747; }
+    .gi { color: #b5cea8; }
+    .gh, .gu { color: #569cd6; }
+    .ge { font-style: italic; }
+    .gs { font-weight: bold; }
+    .w { color: inherit; }
+    .x { color: #d4d4d4; }
+    .ln, .lnt { color: #858585; }
+    .hl { background-color: #264f78; }
+  }
+}
+
+.single .highlight {
+  [data-theme-mode='dark'] & {
+    @include vsc-dark-code;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme-mode='auto'] & {
+      @include vsc-dark-code;
+    }
+  }
+}
+
+// Keep line-number gutter subtle in dark mode.
+[data-theme-mode='dark'] .single .highlight .lntd:first-child {
+  border-right: 1px solid #3c3c3c;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme-mode='auto'] .single .highlight .lntd:first-child {
+    border-right: 1px solid #3c3c3c;
+  }
+}

@@ -1,0 +1,67 @@
+# -------------------------------------------------------------------------------------
+# Menu Configuration
+# See: https://fixit.lruihao.cn/docs/getting-started/configuration/#menu-configuration
+# -------------------------------------------------------------------------------------
+
+[[main]]
+identifier = "home"
+name = "主页"
+url = "/"
+weight = 1
+
+[main.params]
+icon = "fa-solid fa-house"
+
+[[main]]
+identifier = "about"
+name = "关于"
+url = "about/"
+weight = 2
+
+[main.params]
+icon = "fa-solid fa-user"
+
+[[main]]
+identifier = "tags"
+name = "标签"
+url = "tags/"
+weight = 3
+
+[main.params]
+icon = "fa-solid fa-tags"
+
+[[main]]
+identifier = "categories"
+name = "分类"
+url = "categories/"
+weight = 4
+
+[main.params]
+icon = "fa-solid fa-folder-tree"
+
+[[main]]
+identifier = "archives"
+name = "归档"
+url = "archives/"
+weight = 5
+
+[main.params]
+icon = "fa-solid fa-archive"
+
+[[main]]
+identifier = "sitemap"
+name = "站点地图"
+url = "sitemap.xml"
+weight = 6
+
+[main.params]
+icon = "fa-solid fa-sitemap"
+
+[[main]]
+identifier = "404"
+name = "404"
+url = "404.html"
+weight = 7
+
+[main.params]
+icon = "fa-solid fa-heartbeat"

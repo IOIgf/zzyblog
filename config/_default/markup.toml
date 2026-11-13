@@ -1,0 +1,72 @@
+# -------------------------------------------------------------------------------------
+# Markup Configuration
+# See: https://gohugo.io/configuration/markup/
+# -------------------------------------------------------------------------------------
+
+_merge = "shallow"
+
+# Syntax highlighting.
+[highlight]
+# Necessary for FixIt code block wrappers.
+codeFences = true
+noClasses = false
+anchorLineNos = false
+guessSyntax = false
+lineNos = true
+lineNumbersInTable = true
+
+# Goldmark is Hugo's default Markdown renderer.
+[goldmark]
+duplicateResourceFiles = false
+
+[goldmark.extensions]
+definitionList = true
+footnote = true
+linkify = true
+linkifyProtocol = 'https'
+strikethrough = true
+table = true
+taskList = true
+typographer = true
+
+[goldmark.extensions.extras]
+
+[goldmark.extensions.extras.delete]
+enable = true
+
+[goldmark.extensions.extras.insert]
+enable = true
+
+[goldmark.extensions.extras.mark]
+enable = true
+
+[goldmark.extensions.extras.subscript]
+enable = true
+
+[goldmark.extensions.extras.superscript]
+enable = true
+
+# Mathematics: allow $...$ and $$...$$ to pass through to MathJax.
+[goldmark.extensions.passthrough]
+enable = true
+
+[goldmark.extensions.passthrough.delimiters]
+block = [
+  ['\[', '\]'],
+  ['$$', '$$']
+]
+inline = [
+  ['\(', '\)'],
+  ['$', '$']
+]
+
+[goldmark.parser]
+
+[goldmark.parser.attribute]
+block = true
+title = true
+
+[goldmark.renderer]
+hardWraps = false
+unsafe = true
+xhtml = false
