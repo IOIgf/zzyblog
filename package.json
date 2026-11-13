@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
+    "build": "git submodule update --init --recursive && node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && npm install --no-audit --no-fund && cd themes/blowfish && npm install --no-audit --no-fund && npx @tailwindcss/cli -c ./tailwind.config.js -i ./assets/css/main.css -o ./assets/css/compiled/main.css --jit && cd ../.. && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
     "build:hexo": "hexo generate",
     "clean": "hexo clean",
     "clean:hugo": "rm -rf public resources",
@@ -12,36 +12,11 @@
     "publish:watch": "node tools/publish.js --watch",
     "server": "hugo server -D --disableFastRender --navigateToChanged --bind 0.0.0.0",
     "server:hexo": "hexo server",
-    "update:theme": "git submodule update --remote --merge themes/FixIt && git add themes/FixIt && git commit -m \"chore: update FixIt\""
-  },
-  "hexo": {
-    "version": "8.1.2"
+    "update:theme": "git submodule update --remote --merge themes/blowfish && git add themes/blowfish && git commit -m \"chore: update Blowfish\""
   },
   "dependencies": {
-    "@jiangtj/hexo-patch-load-highlight-style": "^1.2.0",
     "hexo": "^8.1.2",
-    "hexo-deployer-git": "^4.0.0",
-    "hexo-generator-archive": "^2.0.0",
-    "hexo-generator-baidu-sitemap": "^0.1.9",
-    "hexo-generator-category": "^2.0.0",
-    "hexo-generator-index-pin-top": "^0.2.2",
-    "hexo-generator-robotstxt": "^0.2.0",
-    "hexo-generator-searchdb": "^1.5.0",
-    "hexo-generator-sitemap": "^3.0.1",
-    "hexo-generator-tag": "^2.0.0",
-    "hexo-image-link": "0.0.6",
-    "hexo-inject": "^1.0.0",
-    "hexo-next-giscus": "^1.3.0",
-    "hexo-renderer-ejs": "^2.0.0",
-    "hexo-renderer-markdown-it": "^7.1.1",
-    "hexo-renderer-stylus": "^3.0.1",
-    "hexo-server": "^3.0.0",
-    "hexo-submit-urls-to-search-engine": "^2.1.0",
-    "hexo-theme-landscape": "^1.1.0",
-    "hexo-theme-next": "^8.29.1",
-    "hexo-theme-stellar": "^2.0.0",
-    "hexo-word-counter": "^0.3.0-rc.1",
-    "prism-themes": "^1.9.0"
+    "hexo-server": "^3.0.0"
   },
   "devDependencies": {
     "sass": "^1.108.2"

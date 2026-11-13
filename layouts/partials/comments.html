@@ -1,0 +1,25 @@
+{{- /* Giscus comments - Blowfish */ -}}
+{{- $giscus := site.Params.giscus | default dict -}}
+{{- if $giscus.enable -}}
+<div class="comments">
+  <div id="giscus"></div>
+</div>
+<script src="https://giscus.app/client.js"
+  data-repo="{{ $giscus.repo }}"
+  data-repo-id="{{ $giscus.repo_id }}"
+  data-category="{{ $giscus.category }}"
+  data-category-id="{{ $giscus.category_id }}"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="{{ $giscus.light_theme | default "light" }}"
+  data-lang="{{ $giscus.lang | default "zh-CN" }}"
+  crossorigin="anonymous"
+  async defer>
+</script>
+<noscript>
+  Please enable JavaScript to view the comments powered by <a href="https://giscus.app/" rel="noopener noreferrer">giscus</a>.
+</noscript>
+{{- end -}}

@@ -1,205 +1,112 @@
-# -------------------------------------------------------------------------------------
-# FixIt Theme Params
-# Only site-specific overrides are listed here; everything else uses FixIt defaults.
-# -------------------------------------------------------------------------------------
+# -- Theme Options --
+# Blowfish theme parameters
 
-version = "1.0.X"
-description = "一个专注于分享算法、编程和思考的个人博客，欢迎交流。"
-keywords = ["算法", "编程", "C++", "博客", "Milk_Dragon"]
-default_theme = "auto"
-date_format = "2006-01-02"
-with_site_title = true
-title_delimiter = "|"
-capitalize_titles = false
-author_avatar = false
-author_archive = false
-license = ""
-page_style = "normal"
-show_lastmod = false
-word_count = true
-reading_time = true
-end_flag = ""
+colorScheme = "blowfish"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
 
-[author]
-name = "zzy"
-email = "zbt662720@outlook.com"
-link = "https://github.com/IOIgf"
-avatar = ""
+enableA11y = false
+enableSearch = true
+enableCodeCopy = true
+enableStructuredBreadcrumbs = false
+replyByEmail = false
 
-[codeblock]
-wrapper = true
-mode = "classic"
-# Do not collapse long code blocks; show them in full like the old site.
-max_shown_lines = 100000
-shadow = "never"
-copyable = true
-downloadable = false
-fullscreen = false
-line_nos_toggler = true
-line_wrap_toggler = true
-editable = false
+mainSections = ["posts"]
+disableImageOptimization = false
+disableImageOptimizationMD = false
+disableTextInHeader = false
 
-[toc]
-enable = true
-keep_static = false
-auto = true
-position = "end"
-ordered = true
-start_level = 2
-end_level = 6
-decrease_h1 = false
+highlightCurrentMenuArea = true
+smartTOC = true
+smartTOCHideUnfocusedChildren = false
 
-[math]
-enable = true
-type = "mathjax"
+fingerprintAlgorithm = "sha512"
 
-[math.mathjax]
-cdn = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-
-[comment]
-enable = true
-
-[comment.giscus]
-enable = true
-repo = "IOIgf/blogtalk"
-repo_id = "R_kgDOTp2CeQ"
-category = "Announcements"
-category_id = "DIC_kwDOTp2Cec4DCbcP"
-mapping = "pathname"
-strict = "0"
-reactions_enabled = "1"
-emit_metadata = "0"
-input_position = "bottom"
-lang = "zh-CN"
-light_theme = "light"
-dark_theme = "dark"
-lazy_load = true
-
-[search]
-enable = true
-type = "fuse"
-content_length = 4000
-placeholder = "搜索文章..."
-max_result_length = 10
-snippet_length = 40
-highlight_tag = "em"
-absolute_url = false
-anchorify = true
-
-[search.fuse]
-is_case_sensitive = false
-min_match_char_length = 1
-find_all_matches = false
-location = 0
-threshold = 0.4
-distance = 200
-ignore_location = false
-use_extended_search = false
-ignore_field_norm = false
+[params.author]
+  name = "zzy"
+  image = "img/avatar.png"
+  headline = "算法 · 编程 · 思考"
+  bio = "Milk_Dragon's blog，一个专注于分享算法、编程和思考的个人博客。"
+  links = [
+    { github = "https://github.com/IOIgf" },
+    { email = "mailto:zbt662720@outlook.com" },
+  ]
 
 [header]
-desktop_mode = "sticky"
-mobile_mode = "auto"
-blur = false
-
-[header.title]
-logo = ""
-name = ""
-pre = ""
-post = ""
-typeit = false
-
-[header.subtitle]
-name = ""
-typeit = false
-
-[breadcrumb]
-enable = false
-
-[navigation]
-reverse = false
+  layout = "floating"
 
 [footer]
-enable = true
-brand = false
-social = false
-copyright = true
-author = true
-since = ""
-gov = ""
-icp = ""
-license = ""
+  showMenu = true
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
 
-[footer.powered]
-enable = true
-hugo_logo = false
-theme_logo = false
+[homepage]
+  layout = "profile"
+  showRecent = true
+  showRecentItems = 5
+  showMoreLink = true
+  showMoreLinkDest = "posts"
+  cardView = false
 
-[footer.site_time]
-enable = false
+[article]
+  showDate = true
+  showViews = false
+  showLikes = false
+  showDateOnlyInArticle = false
+  showDateUpdated = false
+  showAuthor = true
+  showHero = false
+  showBreadcrumbs = false
+  showDraftLabel = true
+  showEdit = false
+  seriesOpened = false
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showReadingProgress = true
+  showTableOfContents = true
+  showRelatedContent = true
+  relatedContentLimit = 3
+  showTaxonomies = true
+  showCategories = true
+  showTags = true
+  showWordCount = true
+  showComments = true
 
-[home.posts]
-enable = true
-paginate = 10
-image_preview = false
-columns = 1
+[list]
+  showHero = false
+  showBreadcrumbs = false
+  showSummary = false
+  showTableOfContents = true
+  showCards = false
+  groupByYear = true
 
-[home.profile]
-enable = true
-only_first_page = false
-avatar_url = ""
-title = "Milk_Dragon's blog"
-subtitle = "一个专注于分享算法、编程和思考的个人博客"
-typeit = false
-social = true
-contribution = false
+[sitemap]
+  excludedKinds = []
 
-[related]
-enable = false
+[taxonomy]
+  showTermCount = true
+  showHero = false
+  showBreadcrumbs = false
+
+[term]
+  showHero = false
+  showBreadcrumbs = false
+  showTableOfContents = true
+  groupByYear = false
 
 [verification]
-google = "0656ac2f11589f69"
+  google = "0656ac2f11589f69"
+  bing = "1BE4ACAAF79D3D574E46DB50D86D2D76"
 
-[social]
-GitHub = "IOIgf"
-Email = "zbt662720@outlook.com"
-RSS = false
-
-[custom_partials]
-head = ["inject/custom-head.html"]
-
-[cookieconsent]
-enable = false
-
-[app]
-pwa = false
-name = "Milk_Dragon's blog"
-short_name = "Milk_Dragon"
-# The theme's default favicon.ico is copied from themes/FixIt/static.
-# Skip the theme's PNG links (which have no matching files) and add a
-# single working icon in inject/custom-head.html instead.
-no_favicon = true
-
-[appearance]
-global_border_radius = "10px"
-# Dark palette: keep the old NexT dark background instead of FixIt's blue-black.
-global_background_color_dark = "#282828"
-global_font_color_dark = "#e6edf3"
-global_link_color_dark = "#58a6ff"
-global_link_hover_color_dark = "#1f6feb"
-header_background_color_dark = "#282828"
-menu_active_color_dark = "#58a6ff"
-selection_color = "#e58a8a"
-selection_color_dark = "#e58a8a"
-scrollbar_color = "#5b64ec"
-scrollbar_hover_color = "#4a53d6"
-# Tables.
-table_background_color_dark = "#161b22"
-table_thead_color_dark = "#1c2333"
-table_border_color_dark = "#30363d"
-# Code blocks.
-code_color_dark = "#d4d4d4"
-code_font_family = "'Fira Code', 'Consolas', 'Monaco', monospace"
-code_background_color_dark = "#1e1e1e"
-code_header_color_dark = "#cccccc"
-code_header_background_color_dark = "#252526"
+[giscus]
+  enable = true
+  repo = "IOIgf/blogtalk"
+  repo_id = "R_kgDOTp2CeQ"
+  category = "Announcements"
+  category_id = "DIC_kwDOTp2Cec4DCbcP"
+  lang = "zh-CN"
+  light_theme = "light"

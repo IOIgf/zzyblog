@@ -1,0 +1,45 @@
+[[main]]
+  name = "主页"
+  page = "/"
+  weight = 10
+
+[[main]]
+  name = "关于"
+  page = "/about/"
+  weight = 20
+
+[[main]]
+  name = "标签"
+  page = "/tags/"
+  weight = 30
+
+[[main]]
+  name = "分类"
+  page = "/categories/"
+  weight = 40
+
+[[main]]
+  name = "归档"
+  page = "/posts/"
+  weight = 50
+
+[[main]]
+  name = "站点地图"
+  url = "/sitemap.xml"
+  weight = 60
+
+[[main]]
+  identifier = "github"
+  pre = "github"
+  url = "https://github.com/IOIgf"
+  weight = 200
+
+[[footer]]
+  name = "标签"
+  page = "/tags/"
+  weight = 10
+
+[[footer]]
+  name = "分类"
+  page = "/categories/"
+  weight = 20
