@@ -4,19 +4,11 @@
   "private": true,
   "scripts": {
     "build": "node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && npm install --no-audit --no-fund && cd themes/blowfish && npm install --no-audit --no-fund && npx @tailwindcss/cli -c ./tailwind.config.js -i ./assets/css/main.css -o ./assets/css/compiled/main.css --jit && cd ../.. && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
-    "build:hexo": "hexo generate",
-    "clean": "hexo clean",
-    "clean:hugo": "rm -rf public resources",
-    "deploy": "hexo deploy",
+    "clean": "rm -rf public resources",
     "publish": "node tools/publish.js --once",
     "publish:watch": "node tools/publish.js --watch",
     "server": "hugo server -D --disableFastRender --navigateToChanged --bind 0.0.0.0",
-    "server:hexo": "hexo server",
     "update:theme": "echo 'TODO: manually update themes/blowfish/'"
-  },
-  "dependencies": {
-    "hexo": "^8.1.2",
-    "hexo-server": "^3.0.0"
   },
   "devDependencies": {
     "sass": "^1.108.2"

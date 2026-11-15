@@ -1,6 +1,6 @@
 # zzyblog
 
-Milk_Dragon's blog，使用 [Hugo](https://gohugo.io/) + [FixIt](https://github.com/hugo-fixit/FixIt) 构建，部署在 Cloudflare Pages。
+Milk_Dragon's blog，使用 [Hugo](https://gohugo.io/) + [Blowfish](https://github.com/blink1073/hugo-theme-blowfish) 构建，部署在 Cloudflare Pages。
 
 ## 本地使用
 
@@ -28,9 +28,8 @@ content/posts/       文章（Typora 写作目录）
 static/              图片、验证文件、_redirects
 assets/scss/         自定义 SCSS
 layouts/             少量自定义模板/注入
-themes/FixIt/        FixIt 主题（Git submodule，固定 v1.0.0-rc.2）
+themes/blowfish/     Blowfish 主题（vendored，手动更新）
 tools/               自动发布、文章规范化脚本
-source/              旧 Hexo 内容（迁移期保留，可回滚）
 ```
 
 ## Cloudflare Pages 设置
@@ -46,18 +45,9 @@ source/              旧 Hexo 内容（迁移期保留，可回滚）
 | `HUGO_VERSION` | `0.169.0` |
 | `NODE_VERSION` | `20` |
 
-构建命令会先初始化 `themes/FixIt` 子模块，再运行 `node tools/normalize-posts.js`，最后执行 `hugo --gc --minify`。
+构建命令会先运行 `node tools/normalize-posts.js`，再安装 Hugo 与 Dart Sass 工具链、构建 Tailwind CSS，最后执行 `hugo --gc --minify`。
 
 FixIt 需要 Dart Sass。仓库的 `sass-embedded` 开发依赖会在 `npm install` 时提供 `sass` 命令，Hugo 会自动使用它。
-
-## 旧 Hexo 回滚
-
-迁移期间旧文件仍在仓库里。若需要临时回滚：
-
-1. 把 Cloudflare 的 Build command 改回 `npm run build:hexo`
-2. 或直接执行 `npx hexo generate`，输出目录仍是 `public`
-
-确认 Hugo 版本稳定后，可以再删除 Hexo 相关配置、`source/`、`scripts/` 和依赖。
 
 ## 迁移说明
 
