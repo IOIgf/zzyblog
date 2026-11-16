@@ -11,7 +11,7 @@
  *    https://goatcounter.com/help/api
  * 3. 二选一：
  *    - 代理模式（推荐）：填 `proxyPath`（如 `'/gc'`），API Key 放在
- *      `functions/gc/[[...rest]].js` 里由 Cloudflare 边缘服务器附加，
+ *      `functions/gc/[...rest].js` 里由 Cloudflare 边缘服务器附加，
  *      洞察页只请求自己域名，避开跨域与广告拦截；
  *    - 直连模式：填 `apiHost` 与 `apiKey`，由浏览器直接请求 GoatCounter。
  * 4. 把 `enabled` 改为 `true`。
@@ -44,7 +44,7 @@ export type GoatCounterConfig = {
   apiKey: string;
   /**
    * 代理模式：同域（或绝对地址）的代理前缀，如 `'/gc'`。
-   * 需配合仓库根目录 `functions/gc/[[...rest]].js`（Cloudflare Pages 函数）。
+   * 需配合仓库根目录 `functions/gc/[...rest].js`（Cloudflare Pages 函数）。
    * 留空则走直连模式（需要同时提供 apiHost 与 apiKey）。
    */
   proxyPath: string;
@@ -58,7 +58,7 @@ export const goatCounterConfig: GoatCounterConfig = {
   enabled: true,
   scriptSrc: 'https://gc.zgo.at/count.js',
   endpoint: 'https://ioigf.goatcounter.com/count',
-  // 代理模式：Key 由 functions/gc/[[...rest]].js 在服务端附加，客户端不下发。
+  // 代理模式：Key 由 functions/gc/[...rest].js 在服务端附加，客户端不下发。
   apiHost: '',
   apiKey: '',
   proxyPath: '/gc',

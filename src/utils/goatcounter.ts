@@ -130,8 +130,8 @@ async function apiGet<T>(path: string, params: Record<string, string | number>):
     throw new GoatCounterApiError(
       'network',
       useProxy()
-        ? '无法通过本站 /gc 代理连接 GoatCounter API。请确认仓库根目录已包含 functions/gc/[[...rest]].js 并已重新部署。'
-        : '无法连接 GoatCounter API（网络或跨域 CORS 错误）。可改用同域代理：在仓库根目录添加 functions/gc/[[...rest]].js，并在 src/config/goatcounter.ts 中设置 proxyPath。',
+        ? '无法通过本站 /gc 代理连接 GoatCounter API。请确认仓库根目录已包含 functions/gc/[...rest].js 并已重新部署。'
+        : '无法连接 GoatCounter API（网络或跨域 CORS 错误）。可改用同域代理：在仓库根目录添加 functions/gc/[...rest].js，并在 src/config/goatcounter.ts 中设置 proxyPath。',
     );
   }
 
