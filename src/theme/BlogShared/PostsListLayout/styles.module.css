@@ -1,0 +1,227 @@
+.postCard {
+  display: block;
+}
+
+.postCard :global(.card) {
+  transition: border-color var(--lk-transition);
+}
+
+.postCard:hover :global(.card) {
+  border-color: var(--ifm-color-primary);
+}
+
+.postCardWithCover {
+  container: blog-post / inline-size;
+}
+
+.postLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.25rem;
+}
+
+@container blog-post (max-width: 560px) {
+  .postLayout {
+    display: block;
+  }
+}
+
+.postCoverWrap {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 1.25rem;
+  border-radius: var(--lk-radius-md);
+  overflow: hidden;
+  background: var(--ifm-color-emphasis-100);
+}
+
+@media (max-width: 768px) {
+  .postCoverWrap {
+    margin-bottom: 1rem;
+  }
+}
+
+.postCover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.postSideCover {
+  grid-area: 1 / 2;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+}
+
+@container blog-post (max-width: 560px) {
+  .postSideCover {
+    margin-bottom: 1rem;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.postContent {
+  display: flex;
+  flex-direction: column;
+  grid-area: 1 / 1;
+  align-self: stretch;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.postTitle {
+  margin: 0 0 0.55rem;
+  font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.postTitleLink {
+  color: inherit;
+  text-decoration: none !important;
+  transition: color var(--lk-transition);
+}
+
+.postTitleLink:hover {
+  color: var(--lk-color-primary-label);
+}
+
+.postExcerpt {
+  color: var(--ifm-color-emphasis-700);
+  margin: 0 0 0.75rem;
+  line-height: 1.65;
+}
+
+.postExcerpt :global(p) {
+  margin: 0;
+}
+
+.postExcerpt :global(p:not(:last-child)) {
+  margin-bottom: 0.5rem;
+}
+
+.postFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  padding-top: 0.75rem;
+  border-top: var(--lk-divider-width) solid var(--lk-divider-color);
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.postContent .postFooter {
+  margin-top: auto;
+}
+
+/* Right-aligned "Read more" link, mirroring detail footer's lastUpdated. */
+.postFooterReadMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--lk-transition);
+}
+
+.postFooterReadMore:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.pageNav {
+  display: inline-flex;
+  align-items: center;
+  height: 2rem;
+  padding: 0 0.5rem;
+  appearance: none;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  cursor: pointer;
+  text-decoration: none !important;
+  user-select: none;
+  outline: none;
+  transition: color var(--lk-transition);
+}
+
+.pageNav:hover {
+  color: var(--ifm-color-primary);
+}
+
+.pageNavDisabled {
+  color: var(--ifm-color-emphasis-400);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.pageList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.pageEllipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 2rem;
+  color: var(--ifm-color-emphasis-500);
+  user-select: none;
+}
+
+.pageNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.4rem;
+  appearance: none;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  cursor: pointer;
+  text-decoration: none !important;
+  user-select: none;
+  outline: none;
+  transition: color var(--lk-transition);
+}
+
+.pageNumber:hover {
+  color: var(--ifm-color-primary);
+}
+
+.pageNumberActive {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}

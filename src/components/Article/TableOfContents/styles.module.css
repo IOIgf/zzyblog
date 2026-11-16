@@ -1,0 +1,209 @@
+.tocProgress {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.tocProgressFill {
+  position: absolute;
+  inset: 0;
+  background: var(--ifm-color-primary);
+  border-radius: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+.tocContainer {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 32px);
+}
+
+.tocContainerCollapsible {
+  position: static;
+  margin: 1rem 0;
+}
+
+.tocDisclosure {
+  border-block: var(--lk-divider-width) solid var(--lk-divider-color);
+}
+
+.tocDisclosureSummary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.tocDisclosureSummary::-webkit-details-marker {
+  display: none;
+}
+
+.tocDisclosureSummary:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.tocDisclosureSummary .tocHeaderPercent {
+  margin-left: auto;
+}
+
+.tocDisclosureChevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--ifm-color-emphasis-700);
+  transition: transform var(--lk-transition);
+}
+
+.tocDisclosure[open] .tocDisclosureChevron {
+  transform: rotate(180deg);
+}
+
+.tocContent.tocDisclosureContent {
+  max-height: min(50vh, 28rem);
+  padding-bottom: 0.75rem;
+}
+
+.tocDisclosureContent .tocList {
+  margin-top: 0.75rem;
+}
+
+.tocContent {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - var(--ifm-navbar-height) - 64px);
+  min-height: 0;
+}
+
+.tocHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.tocHeaderTitle {
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tocHeaderPercent {
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  color: var(--ifm-color-primary);
+  line-height: 1;
+}
+
+.tocList {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  margin: 1rem 0 0;
+  padding: 0 0 0 1px;
+  list-style: none;
+}
+
+.tocItem {
+  position: relative;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.tocItem::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--ifm-color-emphasis-200);
+}
+
+.tocItem:first-child::before {
+  top: 0.4rem;
+}
+
+.tocItem:last-child::before {
+  bottom: 0.4rem;
+}
+
+.tocItemL2 {
+  padding-left: 0.875rem;
+}
+
+.tocItemL3 {
+  padding-left: 1.625rem;
+}
+
+.tocItemL4 {
+  padding-left: 2.375rem;
+}
+
+.tocItemL5 {
+  padding-left: 3.125rem;
+}
+
+.tocItemL6 {
+  padding-left: 3.875rem;
+}
+
+.tocLink {
+  display: block;
+  padding: 0.3rem 0;
+  color: var(--ifm-toc-link-color);
+  text-decoration: none !important;
+  transition: color var(--lk-transition);
+}
+
+.tocLink:hover {
+  color: var(--ifm-color-primary);
+}
+
+.tocLink:active {
+  color: var(--ifm-color-primary-dark);
+}
+
+.tocLinkActive {
+  color: var(--ifm-color-primary);
+}
+
+.tocLinkActive::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 2px;
+  background: var(--ifm-color-primary);
+  border-radius: 1px;
+}
+
+@media (max-width: 996px) {
+  .tocContainer {
+    top: calc(var(--ifm-navbar-height) + 16px);
+  }
+
+  .tocContent {
+    max-height: calc(100vh - var(--ifm-navbar-height) - 32px);
+  }
+}
+
+@media print {
+  .tocContainerCollapsible {
+    display: none;
+  }
+}

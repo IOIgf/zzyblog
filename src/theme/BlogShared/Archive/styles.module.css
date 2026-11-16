@@ -1,0 +1,7 @@
+.filterGroup {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 1rem);
+}
+
+.filterGroup + .filterGroup {
+  margin-top: 0.5rem;
+}

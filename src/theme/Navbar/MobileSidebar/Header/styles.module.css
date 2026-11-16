@@ -1,0 +1,31 @@
+.brand {
+  gap: var(--navbar-control-gap);
+}
+
+.close:global(.navbar-sidebar__close) {
+  margin: 0;
+}
+
+.brand :global(.navbar__brand) {
+  flex: 1;
+  min-width: 0;
+  margin-right: 0;
+}
+
+.brand :global(.navbar__title) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: none;
+  flex: none;
+  align-items: center;
+  gap: var(--navbar-control-gap);
+}
+@media (max-width: 375px) {
+  .actions {
+    display: flex;
+  }
+}

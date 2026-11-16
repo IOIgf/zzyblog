@@ -1,16 +1,64 @@
 {
   "name": "zzyblog",
   "version": "0.0.0",
+  "description": "Milk_Dragon's blog — 算法、编程与思考",
   "private": true,
+  "license": "MIT",
   "scripts": {
-    "build": "node tools/normalize-posts.js && bash tools/install-hugo.sh && bash tools/install-dart-sass.sh && npm install --no-audit --no-fund && cd themes/blowfish && npm install --no-audit --no-fund && npx @tailwindcss/cli -c ./tailwind.config.js -i ./assets/css/main.css -o ./assets/css/compiled/main.css --jit && cd ../.. && PATH=\"$HOME/bin:$PWD/node_modules/.bin:$PATH\" ~/bin/hugo --gc --minify --logLevel info",
-    "clean": "rm -rf public resources",
+    "postinstall": "node .github/scripts/patch-react-dom.mjs",
+    "docusaurus": "docusaurus",
+    "start": "node tools/normalize-posts.js && docusaurus start",
+    "build": "node tools/normalize-posts.js && docusaurus build --out-dir public",
+    "serve": "docusaurus serve --dir public",
+    "clear": "docusaurus clear",
     "publish": "node tools/publish.js --once",
     "publish:watch": "node tools/publish.js --watch",
-    "server": "hugo server -D --disableFastRender --navigateToChanged --bind 0.0.0.0",
-    "update:theme": "echo 'TODO: manually update themes/blowfish/'"
+    "normalize": "node tools/normalize-posts.js",
+    "format": "prettier --write .",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.10.2",
+    "@docusaurus/faster": "^3.10.2",
+    "@docusaurus/preset-classic": "^3.10.2",
+    "@docusaurus/utils": "^3.10.2",
+    "@easyops-cn/docusaurus-search-local": "0.55.3",
+    "@fontsource/inter": "^5.2.8",
+    "@giscus/react": "^3.0.0",
+    "@lailai0916/ui": "0.3.22",
+    "@mdx-js/react": "^3.0.0",
+    "clsx": "^2.0.0",
+    "katex": "^0.16.47",
+    "lucide-static": "1.52.0",
+    "prism-react-renderer": "^2.4.0",
+    "raw-loader": "^4.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
-    "sass": "^1.108.2"
+    "@docusaurus/module-type-aliases": "^3.10.2",
+    "@docusaurus/tsconfig": "^3.10.2",
+    "@docusaurus/types": "^3.10.2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "prettier": "^3.6.2",
+    "typescript": "~6.0.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=20.19"
   }
 }

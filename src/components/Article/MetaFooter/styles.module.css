@@ -1,0 +1,39 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  margin-top: 2rem;
+  border-top: var(--lk-divider-width) solid var(--lk-divider-color);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tagChipLink {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Push the view count + "last updated" cluster to the right of the row.
+   Works whether or not tags are present on the left. */
+.metaEnd {
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+}

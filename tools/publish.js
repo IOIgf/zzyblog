@@ -6,7 +6,7 @@
  *
  * 用法：
  *   node tools/publish.js --once     立即提交并推送一次
- *   node tools/publish.js --watch    监听 content/、static/、assets/，停止修改 30 秒后自动提交并推送
+ *   node tools/publish.js --watch    监听 blog/、static/，停止修改 30 秒后自动提交并推送
  *   node tools/publish.js --dry-run  只显示会提交哪些文件，不真正提交
  *
  * 可选环境变量：
@@ -19,10 +19,9 @@ const { watch } = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const contentDir = path.join(root, 'content');
+const blogDir = path.join(root, 'blog');
 const staticDir = path.join(root, 'static');
-const assetsDir = path.join(root, 'assets');
-const publishPaths = ['content', 'static', 'assets'];
+const publishPaths = ['blog', 'static'];
 const normalizeScript = path.join(root, 'tools', 'normalize-posts.js');
 const branch = process.env.PUBLISH_BRANCH || 'main';
 const delayMs = Number(process.env.PUBLISH_DELAY || 30000);
@@ -126,7 +125,7 @@ function startWatch() {
   };
 
   try {
-    for (const dir of [contentDir, staticDir, assetsDir]) {
+    for (const dir of [blogDir, staticDir]) {
       watch(dir, { recursive: true }, schedule);
     }
   } catch (error) {

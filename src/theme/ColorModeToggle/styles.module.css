@@ -1,0 +1,21 @@
+.toggle {
+  flex: none;
+  width: var(--navbar-control-size);
+  height: var(--navbar-control-size);
+}
+
+.toggleIcon {
+  display: none;
+  width: var(--navbar-control-icon-size);
+  height: var(--navbar-control-icon-size);
+}
+
+[data-theme-choice='system'] .systemToggleIcon,
+[data-theme-choice='light'] .lightToggleIcon,
+[data-theme-choice='dark'] .darkToggleIcon {
+  display: initial;
+}
+
+.toggleButtonDisabled {
+  cursor: not-allowed;
+}

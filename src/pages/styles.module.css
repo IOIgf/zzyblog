@@ -1,0 +1,530 @@
+.home {
+  container: home / inline-size;
+}
+
+.hero {
+  --home-avatar-size: 72px;
+  --home-mascot-size: 96px;
+  --home-contact-size: 40px;
+  --home-contact-gap: 0.5rem;
+  --home-contact-width: calc(5 * var(--home-contact-size) + 4 * var(--home-contact-gap));
+  --home-detail-padding: 1.25rem;
+  --home-card-border: 1px;
+  --home-detail-min-width: calc(
+    var(--home-contact-width) + 2 * var(--home-detail-padding) + 2 * var(--home-card-border)
+  );
+  overflow: clip;
+  padding: 3rem 1.5rem 4rem;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keep four columns at the full 800px grid width plus both 1.5rem gutters. */
+@container home (width < calc(800px + 3rem)) {
+  .hero {
+    --home-avatar-size: 56px;
+    --home-mascot-size: 72px;
+    padding: 1rem;
+  }
+}
+
+@container home (width <= 600px) {
+  .hero {
+    --home-mascot-size: 64px;
+  }
+}
+
+/* Match two minimum detail cards, their gap, and both compact hero gutters. */
+@container home (
+  width < calc(2 * (5 * 40px + 4 * 0.5rem + 2 * 1.25rem + 2px) + 0.75rem + 2rem)
+) {
+  .hero {
+    align-items: flex-start;
+  }
+}
+
+.bento {
+  --home-grid-gap: var(--lk-space-4);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto auto;
+  gap: var(--home-grid-gap);
+  max-width: 800px;
+  width: 100%;
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .bento {
+    --home-grid-gap: var(--lk-space-3);
+    grid-template-columns: repeat(2, 1fr);
+    max-width: calc(2 * var(--home-detail-min-width) + var(--home-grid-gap));
+  }
+}
+
+@media (max-width: 375px) {
+  .bento {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento > * {
+  min-width: 0;
+}
+
+.cardMain {
+  --card-padding: 1.75rem;
+  grid-column: span 2;
+  grid-row: span 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .cardMain {
+    --card-padding: 1.25rem;
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+@container home
+  (width < calc(800px + 3rem)) and
+  (width >= calc(2 * (5 * 40px + 4 * 0.5rem + 2 * 1.25rem + 2px) + 0.75rem + 2rem)) {
+  .cardMain {
+    display: grid;
+    grid-template-columns: minmax(max-content, 2fr) minmax(0, 3fr);
+    align-items: center;
+    gap: var(--home-grid-gap);
+  }
+}
+
+@media (max-width: 375px) {
+  .cardMain {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+.cardMainInner {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .cardMainInner {
+    gap: 1rem;
+  }
+}
+
+@container home
+  (width < calc(800px + 3rem)) and
+  (width >= calc(2 * (5 * 40px + 4 * 0.5rem + 2 * 1.25rem + 2px) + 0.75rem + 2rem)) {
+  .cardMainInner {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 240px) {
+  .cardMainInner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.intro {
+  flex: 1;
+}
+
+.name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .name {
+    font-size: 1.5rem;
+  }
+}
+
+.role {
+  color: var(--ifm-color-emphasis-600);
+  margin: 0.25rem 0 0;
+}
+
+@container home
+  (width < calc(800px + 3rem)) and
+  (width >= calc(2 * (5 * 40px + 4 * 0.5rem + 2 * 1.25rem + 2px) + 0.75rem + 2rem)) {
+  .role {
+    white-space: nowrap;
+  }
+}
+
+.roleTyping {
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+}
+
+.roleCursor {
+  color: var(--ifm-color-emphasis-600);
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.08rem;
+  vertical-align: -0.12em;
+  background: currentColor;
+  border-radius: 999px;
+  animation: blink 1.2s steps(1, end) infinite;
+}
+
+/* Blink ends on opacity:0; without this the global reduced-motion guard would
+   freeze the cursor on that frame and hide it. Drop the animation, keep it solid. */
+@media (prefers-reduced-motion: reduce) {
+  .roleCursor {
+    animation: none;
+  }
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.profileTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .profileTags {
+    gap: 0.4rem;
+    --badge-font-size: 0.8rem;
+    --badge-padding: 0.2rem 0.4rem;
+  }
+}
+
+.cardNav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  min-height: 100px;
+  height: 100%;
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .cardNav {
+    flex-direction: row;
+    align-items: center;
+    min-height: auto;
+    gap: 1rem;
+  }
+}
+
+.cardNav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--link-card-accent) 10%, transparent),
+    color-mix(in srgb, var(--link-card-accent) 5%, transparent)
+  );
+}
+
+.cardNav:hover::before {
+  opacity: 1;
+}
+
+.cardNav:hover .cardNavArrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.cardNav1 {
+  --link-card-accent: #ffc107;
+}
+
+.cardNav2 {
+  --link-card-accent: #2196f3;
+}
+
+.cardNav3 {
+  --link-card-accent: #37a93c;
+}
+
+.cardNav4 {
+  --link-card-accent: #f44336;
+}
+
+.cardNavIcon {
+  font-size: 1.5rem;
+  position: relative;
+  z-index: 1;
+  color: var(--link-card-accent);
+}
+
+.cardNavTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.cardNavArrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-400);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition:
+    opacity var(--lk-transition),
+    transform var(--lk-transition);
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .cardNavArrow {
+    position: static;
+    transform: none;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 375px) {
+  .cardNavArrow {
+    opacity: 1;
+  }
+}
+
+.details {
+  --card-padding: var(--home-detail-padding);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--home-detail-min-width)), 1fr));
+  gap: inherit;
+}
+
+.details > * {
+  min-width: 0;
+  border-width: var(--home-card-border);
+}
+
+.infoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.infoRowIcon {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.infoRowValue {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: var(--ifm-color-emphasis-900);
+  text-decoration: none !important;
+  transition: color var(--lk-transition);
+}
+
+a.infoRowValue:hover {
+  color: var(--ifm-color-primary);
+}
+
+.cardSocial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardSocialLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+}
+
+@container home (width < calc(800px + 3rem)) {
+  .cardSocialLabel {
+    display: none;
+  }
+}
+
+.socialLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--home-contact-gap);
+  min-width: 0;
+  max-width: 100%;
+  width: var(--home-contact-width);
+  justify-content: center;
+}
+
+@media (max-width: 375px) {
+  .socialLinks {
+    margin-inline: auto;
+  }
+}
+
+.socialLink {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--home-contact-size);
+  height: var(--home-contact-size);
+  border-radius: var(--lk-radius-md);
+  color: var(--ifm-color-emphasis-600);
+  opacity: 0.8;
+  background: var(--ifm-color-emphasis-100);
+  transition:
+    color var(--lk-transition),
+    transform var(--lk-transition);
+}
+
+.socialLink:hover {
+  color: var(--ifm-color-primary);
+}
+
+.socialLink:active {
+  transform: scale(0.92);
+}
+
+.mascot {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: var(--home-mascot-size);
+  height: var(--home-mascot-size);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mascot:has(.mascotButton:focus-visible) {
+  box-shadow: var(--lk-focus-ring);
+}
+
+.mascot[data-visible] .mascotButton {
+  pointer-events: auto;
+}
+
+.mascot[data-visible] .mascotGreeting {
+  opacity: 1;
+  transform: none;
+  transition-delay: 280ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot .mascotGreeting,
+  .mascot[data-visible] .mascotGreeting {
+    transform: none;
+    transition: none;
+  }
+}
+
+.mascotViewport {
+  width: 100%;
+  height: 100%;
+  overflow: clip;
+}
+
+.mascotButton {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  transform: translateY(104%) rotate(-5deg) scale(0.96);
+  transform-origin: 35% 100%;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.mascotButton:focus-visible {
+  outline: none;
+}
+
+.mascotButton img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mascotGreeting {
+  position: absolute;
+  left: 1rem;
+  bottom: calc(100% + 0.75rem);
+  width: max-content;
+  max-width: min(18rem, calc(100vw - 2rem));
+  padding: 0.625rem 0.875rem;
+  border: var(--lk-divider-width) solid var(--lk-divider-color);
+  border-radius: var(--lk-radius-md);
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-card-background-color);
+  box-shadow: var(--lk-shadow-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transform-origin: 1.5rem 100%;
+  transition:
+    opacity 180ms ease,
+    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mascotGreeting::after {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  border-right: var(--lk-divider-width) solid var(--lk-divider-color);
+  border-bottom: var(--lk-divider-width) solid var(--lk-divider-color);
+  background: var(--ifm-card-background-color);
+  transform: rotate(45deg);
+}

@@ -1,0 +1,15 @@
+@media print {
+  .postCard {
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0;
+    background: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.comments {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: var(--lk-divider-width, 1px) solid var(--lk-divider-color, #e5e7eb);
+}

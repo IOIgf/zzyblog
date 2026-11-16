@@ -1,0 +1,10 @@
+zzy:
+  name: Milk_Dragon
+  title: OIer · 开发者 · 博主
+  description: 一个专注于算法、编程与思考的 blog。
+  image_url: /img/logo.svg
+  page: true
+  socials:
+    github: IOIgf
+    x: IOIgf
+    email: zbt662720@outlook.com

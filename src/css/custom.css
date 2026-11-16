@@ -1,0 +1,661 @@
+@import '@lailai0916/ui/theme.css';
+@import '@lailai0916/ui/styles.css';
+@import './laikit.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/800.css';
+@import 'katex/dist/katex.min.css';
+
+:root {
+  --ifm-color-primary: #1d9bf0;
+  --ifm-color-primary-dark: #0f8ee3;
+  --ifm-color-primary-darker: #0e86d6;
+  --ifm-color-primary-darkest: #0c6eb1;
+  --ifm-color-primary-light: #36a6f2;
+  --ifm-color-primary-lighter: #43acf3;
+  --ifm-color-primary-lightest: #69bcf5;
+  --ifm-color-primary-rgb: 29, 155, 240;
+  --ifm-font-family-base:
+    'SF Pro Text', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', system-ui,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --global-font-size: 16px;
+  --global-line-height: 1.65;
+}
+
+/* Keep short and long pages aligned when classic scrollbars are used. */
+html {
+  scrollbar-gutter: stable;
+}
+
+.site-page-content > :last-child {
+  margin-bottom: 0;
+}
+
+/* Important utility overrides must share Infima's cascade layer. */
+@layer docusaurus.infima {
+  .about-page-wrapper main.margin-vert--lg {
+    margin-bottom: var(--lk-page-padding-block) !important;
+  }
+}
+
+[data-theme='dark'] {
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Experimental appearance toggles, merged into <html> through Docusaurus's
+   HtmlClassNameProvider so they survive client-side navigation. */
+html.gray-mode {
+  filter: grayscale(100%);
+}
+
+html.debug-mode div {
+  outline: 1px solid red;
+}
+
+html.debug-mode span {
+  outline: 1px solid orange;
+}
+
+/* Visually hidden but exposed to assistive tech — the shared utility for
+   screen-reader-only text and data tables behind a visual-only chart. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Translucent floating chrome — the navbar reads as frosted glass with content
+   blurring underneath (Apple's signature material layer), replacing Infima's
+   opaque bar + hard drop shadow. Same frosted material as the WindowBar; the
+   blur, not a shadow, separates it from the content scrolling under. */
+.navbar {
+  --navbar-control-size: 32px;
+  --navbar-control-icon-size: 17px;
+  --navbar-control-gap: var(--lk-space-2);
+  background-color: color-mix(in srgb, var(--ifm-navbar-background-color) 72%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: none;
+  border-bottom: var(--lk-divider-width) solid
+    color-mix(in srgb, var(--lk-divider-color) 55%, transparent);
+}
+
+/* The native drawer owns the backdrop without changing the navbar's glass material. */
+.navbar-sidebar__backdrop {
+  display: none;
+}
+
+@media (min-width: 997px) {
+  .main-wrapper .theme-doc-sidebar-container {
+    border-right: var(--lk-divider-width) solid var(--lk-divider-color);
+  }
+}
+
+.navbar__items--right {
+  gap: var(--navbar-control-gap);
+}
+
+.navbar__items--right > .navbar__item {
+  padding-inline: var(--navbar-control-gap);
+}
+
+.navbar__items--right > :has(.navbar-control) {
+  display: flex;
+  flex: none;
+  padding: 0;
+}
+@media (max-width: 375px) {
+  .navbar__items--right > :has(.navbar-control) {
+    display: none;
+  }
+}
+
+.navbar__items--right > :has(.DocSearch-Button) {
+  position: static;
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding-inline: 0;
+}
+
+.navbar-control {
+  flex: none;
+  width: var(--navbar-control-size);
+  height: var(--navbar-control-size);
+  min-width: var(--navbar-control-size);
+  min-height: var(--navbar-control-size);
+  margin: 0;
+  text-decoration: none;
+}
+
+.navbar-control:hover {
+  text-decoration: none;
+}
+
+.navbar .DocSearch-Button {
+  appearance: none;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--navbar-control-size);
+  height: var(--navbar-control-size);
+  min-width: var(--navbar-control-size);
+  min-height: var(--navbar-control-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--lk-radius-sm);
+  background: transparent;
+  box-shadow: none;
+  color: var(--lk-font-color-secondary);
+  cursor: pointer;
+  line-height: 1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    border-color var(--lk-transition),
+    background-color var(--lk-transition),
+    color var(--lk-transition),
+    transform var(--lk-transition);
+}
+@media (width > 768px) {
+  .navbar .DocSearch-Button {
+    width: auto;
+    padding-inline: var(--lk-space-3);
+    border: 1px solid var(--ifm-color-emphasis-200);
+    background: var(--ifm-card-background-color);
+    box-shadow: var(--lk-shadow-sm);
+    font-family: var(--ifm-font-family-base);
+  }
+}
+
+.navbar .DocSearch-Button:hover {
+  background-color: var(--lk-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+}
+@media (width > 768px) {
+  .navbar .DocSearch-Button:hover {
+    border-color: var(--ifm-color-primary);
+    background: var(--ifm-card-background-color);
+    color: var(--lk-font-color-secondary);
+  }
+}
+
+.navbar .DocSearch-Button:active {
+  transform: scale(0.92);
+}
+@media (width > 768px) {
+  .navbar .DocSearch-Button:active {
+    transform: scale(0.97);
+  }
+}
+
+.navbar .DocSearch-Button:focus-visible {
+  outline: none;
+  box-shadow: var(--lk-focus-ring);
+}
+
+.navbar-control svg,
+.navbar .DocSearch-Search-Icon {
+  flex: none;
+  width: var(--navbar-control-icon-size);
+  height: var(--navbar-control-icon-size);
+  stroke-width: 1.75;
+}
+
+.navbar-control svg [stroke-width],
+.navbar .DocSearch-Search-Icon [stroke-width] {
+  stroke-width: inherit;
+}
+
+/* Keep site preferences scoped to the navbar trigger and full search page. */
+.navbar,
+.search-page-wrapper .main-wrapper {
+  --docsearch-primary-color: var(--ifm-color-primary);
+  --docsearch-soft-primary-color: var(--lk-color-primary-soft);
+  --docsearch-highlight-color: color-mix(
+    in srgb,
+    var(--lk-color-primary-label) 70%,
+    var(--ifm-font-color-base)
+  );
+  --docsearch-focus-color: var(--ifm-color-primary);
+  --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-secondary-text-color: var(--ifm-color-emphasis-700);
+  --docsearch-muted-color: var(--ifm-color-emphasis-700);
+  --docsearch-icon-color: var(--ifm-color-emphasis-700);
+  --docsearch-subtle-color: var(--ifm-color-emphasis-200);
+  --docsearch-background-color: var(--ifm-color-emphasis-100);
+  --docsearch-modal-background: var(--ifm-card-background-color);
+  --docsearch-modal-shadow: var(--lk-shadow-overlay);
+  --docsearch-border-radius: var(--lk-radius-control);
+  --docsearch-search-button-background: var(--ifm-color-emphasis-100);
+  --docsearch-search-button-text-color: var(--ifm-color-emphasis-700);
+  --docsearch-searchbox-background: var(--ifm-card-background-color);
+  --docsearch-searchbox-focus-background: var(--ifm-card-background-color);
+  --docsearch-hit-color: var(--ifm-font-color-base);
+  --docsearch-hit-background: var(--ifm-card-background-color);
+  --docsearch-hit-highlight-color: var(--lk-color-primary-soft);
+  --docsearch-key-background: var(--ifm-color-emphasis-100);
+  --docsearch-key-color: var(--ifm-color-emphasis-700);
+  --docsearch-footer-background: var(--ifm-card-background-color);
+  --docsearch-footer-shadow: none;
+  --docsearch-error-color: var(--lk-color-danger);
+  --docsearch-success-color: var(--lk-color-success-soft);
+}
+
+/* Keep the search dialog's controls and tables on their native border colors. */
+.DocSearch-Modal .DocSearch-Form {
+  border-block-end: var(--lk-divider-width) solid var(--lk-divider-color);
+}
+
+.DocSearch-Modal .DocSearch-Footer {
+  border-block-start: var(--lk-divider-width) solid var(--lk-divider-color);
+}
+
+.DocSearch-Modal .DocSearch-Divider {
+  border-inline-start: var(--lk-divider-width) solid var(--lk-divider-color);
+}
+
+.navbar .DocSearch-Button-Container {
+  gap: var(--lk-space-2);
+}
+
+.navbar .DocSearch-Button-Placeholder {
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.navbar .DocSearch-Button-Keys {
+  gap: var(--lk-space-1);
+  min-width: 0;
+  margin-inline-start: var(--lk-space-3);
+}
+
+.navbar .DocSearch-Button-Key {
+  box-sizing: border-box;
+  flex: none;
+  width: auto;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 0.25em;
+  background: var(--ifm-card-background-color);
+  border-color: var(--ifm-color-emphasis-200);
+  font-family: var(--lk-font-mono);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.navbar .DocSearch-Button-Key:first-child {
+  margin-inline-end: 0;
+}
+
+/* Use the framework's page marker and semantic elements rather than hashed module names. */
+.search-page-wrapper .main-wrapper > .container {
+  width: 100%;
+  max-width: 960px;
+  margin-block: 0;
+  padding: var(--lk-page-padding-block) var(--lk-page-padding-inline);
+}
+
+.search-page-wrapper .container > h1 {
+  margin-bottom: var(--lk-space-6);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+
+.search-page-wrapper .container > form {
+  gap: var(--lk-space-4);
+  margin: 0 0 var(--lk-space-4);
+}
+
+.search-page-wrapper .container > form > .col {
+  flex: 1;
+  min-width: 0;
+  max-width: 100% !important;
+  padding: 0;
+}
+
+.search-page-wrapper .container select {
+  min-height: var(--docsearch-searchbox-height, 56px);
+  padding: var(--lk-space-3) var(--lk-space-4);
+  margin-bottom: 0;
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--lk-radius-control);
+  box-shadow: var(--lk-shadow-sm);
+  color: var(--ifm-font-color-base);
+  font: inherit;
+  transition:
+    border-color var(--lk-transition),
+    box-shadow var(--lk-transition);
+}
+
+.search-page-wrapper .container select:focus {
+  border-color: var(--ifm-color-primary);
+  outline: none;
+  box-shadow: var(--lk-focus-ring);
+}
+
+.search-page-wrapper .container > div.row {
+  align-items: center;
+  gap: var(--lk-space-2) var(--lk-space-4);
+  margin: 0 0 var(--lk-space-6);
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.875rem;
+}
+
+.search-page-wrapper .container > div.row > .col {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  max-width: none !important;
+  padding: 0;
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.search-page-wrapper .container > div.row > .col:last-child {
+  flex: 0 0 auto;
+  gap: var(--lk-space-2);
+  padding: 0;
+  white-space: nowrap;
+}
+
+.search-page-wrapper .container > main {
+  display: grid;
+  gap: var(--lk-space-3);
+}
+
+.search-page-wrapper .container > main > article {
+  min-width: 0;
+  padding: var(--lk-space-5);
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--lk-radius-lg);
+  box-shadow: var(--lk-shadow-md);
+}
+
+.search-page-wrapper article > h2 {
+  margin: 0 0 var(--lk-space-2);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.search-page-wrapper article > h2 > a {
+  color: var(--ifm-font-color-base);
+  transition: color var(--lk-transition);
+}
+
+.search-page-wrapper article > h2 > a:hover {
+  color: var(--lk-color-primary-label);
+  text-decoration: none;
+}
+
+.search-page-wrapper article > h2 > a:focus-visible {
+  border-radius: var(--lk-radius-sm);
+  outline: none;
+  box-shadow: var(--lk-focus-ring);
+}
+
+.search-page-wrapper article .breadcrumbs {
+  margin-bottom: 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.search-page-wrapper article > p {
+  margin: var(--lk-space-3) 0 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+  font-style: normal;
+  line-height: var(--global-line-height);
+  overflow-wrap: break-word;
+}
+
+.search-page-wrapper .search-result-match {
+  padding: 0.08em 0.2em;
+  background: var(--lk-color-primary-soft);
+  border-radius: var(--lk-space-1);
+  color: var(--docsearch-highlight-color);
+}
+
+.search-page-wrapper .container > p {
+  padding: var(--lk-space-8) var(--lk-space-4);
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--lk-radius-lg);
+  box-shadow: var(--lk-shadow-md);
+  color: var(--ifm-color-emphasis-700);
+  text-align: center;
+}
+
+.theme-announcement-bar {
+  font-size: 20px;
+
+  --site-announcement-bar-stripe-color1: rgb(252, 228, 189);
+  --site-announcement-bar-stripe-color2: rgb(255, 253, 250);
+
+  background: repeating-linear-gradient(
+    35deg,
+    var(--site-announcement-bar-stripe-color1),
+    var(--site-announcement-bar-stripe-color1) 20px,
+    var(--site-announcement-bar-stripe-color2) 20px,
+    var(--site-announcement-bar-stripe-color2) 40px
+  );
+  font-weight: bold;
+}
+
+[data-theme='light'] img[src$='#gh-dark-mode-only'],
+[data-theme='dark'] img[src$='#gh-light-mode-only'] {
+  display: none;
+}
+
+pre,
+code {
+  tab-size: 4;
+}
+
+/* Brand the text-selection highlight — a soft primary tint that stays legible
+   in both themes and never overrides the text color. */
+::selection {
+  background: color-mix(in srgb, var(--ifm-color-primary) 22%, transparent);
+}
+
+html,
+.main-wrapper,
+article,
+.markdown {
+  font-size: var(--global-font-size);
+  line-height: var(--global-line-height);
+}
+
+.katex-display {
+  overflow: auto hidden;
+  scrollbar-width: thin;
+}
+
+@page {
+  margin: 16mm 15mm 18mm;
+}
+
+@media print {
+  /* Paper must stay readable when the visitor uses the dark theme. */
+  html[data-theme] {
+    color-scheme: light;
+    --ifm-background-color: #fff;
+    --ifm-background-surface-color: #fff;
+    --ifm-card-background-color: #fff;
+    --ifm-font-color-base: #202124;
+    --ifm-heading-color: #202124;
+    --ifm-link-color: #175b91;
+    --ifm-color-emphasis-100: #f5f5f5;
+    --ifm-color-emphasis-200: #e1e1e1;
+    --ifm-color-emphasis-300: #ccc;
+    --ifm-color-emphasis-400: #999;
+    --ifm-color-emphasis-500: #777;
+    --ifm-color-emphasis-600: #666;
+    --ifm-color-emphasis-700: #454545;
+    --ifm-color-emphasis-800: #333;
+    --ifm-color-emphasis-900: #222;
+    --ifm-pre-background: #f6f6f6;
+    --prism-background-color: #f6f6f6;
+    --prism-color: #202124;
+    --global-font-size: 10.5pt;
+    --global-line-height: 1.5;
+  }
+
+  html,
+  body,
+  .main-wrapper,
+  main {
+    background: #fff !important;
+  }
+
+  body {
+    color: #202124;
+  }
+
+  .theme-announcement-bar,
+  .theme-doc-sidebar-container,
+  .theme-doc-version-banner,
+  .pagination-nav {
+    display: none !important;
+  }
+
+  .theme-doc-sidebar-container + main {
+    width: 100%;
+    max-width: none !important;
+  }
+
+  .theme-doc-sidebar-container + main > .container {
+    width: 100%;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .theme-doc-sidebar-container + main .row {
+    margin: 0;
+  }
+
+  .markdown {
+    color: #202124;
+    overflow-wrap: break-word;
+  }
+
+  .markdown :is(h1, h2, h3, h4, h5, h6) {
+    color: #202124;
+    break-after: avoid-page;
+  }
+
+  .markdown :is(p, li, blockquote) {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .markdown a {
+    color: #175b91;
+    text-decoration: underline;
+  }
+
+  .markdown .alert {
+    --ifm-alert-background-color: #f7f7f7;
+    --ifm-alert-background-color-highlight: #ececec;
+    --ifm-alert-border-color: #aaa;
+    --ifm-alert-foreground-color: #202124;
+    --ifm-link-color: #175b91;
+    box-shadow: none;
+  }
+
+  .markdown :is(img, figure, tr, blockquote, .alert, .tabs-container) {
+    break-inside: avoid-page;
+  }
+
+  .markdown img {
+    max-width: 100%;
+    max-height: 240mm;
+    object-fit: contain;
+  }
+
+  .markdown .table-responsive {
+    overflow: visible;
+  }
+
+  .markdown table {
+    display: table;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .markdown thead {
+    display: table-header-group;
+  }
+
+  .markdown pre,
+  .markdown pre code {
+    color: #202124 !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere;
+  }
+
+  .markdown pre * {
+    color: inherit !important;
+    text-shadow: none !important;
+  }
+
+  .markdown .theme-code-block button {
+    display: none !important;
+  }
+
+  .markdown pre {
+    overflow: visible;
+    background: #f6f6f6 !important;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    break-inside: auto;
+  }
+
+  .markdown code:not(pre code) {
+    color: #202124;
+    background: #f2f2f2;
+  }
+
+  .katex-display {
+    overflow: visible;
+  }
+}
+
+/* Honor the OS "reduce motion" preference site-wide. Entrance keyframes jump
+   to their final (visible) frame; loops run once; transitions snap. One guard
+   covers every surface — Skeleton shimmer, loaders, page reveals, the globe. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

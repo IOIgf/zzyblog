@@ -2,12 +2,12 @@
 'use strict';
 
 /**
- * Normalize posts for Hugo.
+ * Normalize posts for the Docusaurus blog.
  *
  * Typora users can keep writing plain Markdown with a leading `# Title` and no
- * front matter. Before a build/publish, this script adds the front matter Hugo
- * needs (title, date, slug) and inserts a `<!--more-->` excerpt marker after the
- * first real paragraph when no description/marker exists.
+ * front matter. Before a build/publish, this script adds the front matter
+ * Docusaurus needs (title, date, slug, authors) and inserts a `{/* truncate *\/}`
+ * excerpt marker after the first real paragraph when no marker exists.
  *
  * The operation is idempotent: files that are already complete are left alone.
  */
@@ -16,8 +16,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const postsDir = path.join(root, 'content', 'posts');
-const MARKER = '<!--more-->';
+const postsDir = path.join(root, 'blog');
+const TRUNCATE = '{/* truncate */}';
+const SKIP_FILES = new Set(['authors.yml', 'tags.yml', 'authors.yaml', 'tags.yaml']);
 
 function formatShanghaiDate(date) {
   const parts = new Intl.DateTimeFormat('en-CA', {
@@ -29,10 +30,12 @@ function formatShanghaiDate(date) {
     minute: '2-digit',
     second: '2-digit',
     hour12: false,
-  }).formatToParts(date).reduce((acc, part) => {
-    acc[part.type] = part.value;
-    return acc;
-  }, {});
+  })
+    .formatToParts(date)
+    .reduce((acc, part) => {
+      acc[part.type] = part.value;
+      return acc;
+    }, {});
 
   return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}+08:00`;
 }
@@ -107,8 +110,20 @@ function findInsertIndex(lines) {
   return -1;
 }
 
-function normalizeFile(file) {
-  const fullPath = path.join(postsDir, file);
+function makeSlug(file, date) {
+  const base = path
+    .basename(file, path.extname(file))
+    .replace(/^\d{4}-\d{2}-\d{2}-/, '')
+    .replace(/\s+/g, '-');
+
+  const day = date.slice(0, 10);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(day)) {
+    return `/${day.replace(/-/g, '/')}/${base}/`;
+  }
+  return `/${base}/`;
+}
+
+function normalizeFile(fullPath) {
   const original = fs.readFileSync(fullPath, 'utf8').replace(/\r\n/g, '\n');
   let { frontMatter, body } = splitFrontMatter(original);
   let changed = false;
@@ -126,7 +141,7 @@ function normalizeFile(file) {
       body = body.slice(heading[0].length).replace(/^\n+/, '');
       changed = true;
     } else {
-      title = path.basename(file, '.md');
+      title = path.basename(fullPath, path.extname(fullPath));
     }
     frontMatter = writeValue(frontMatter, 'title', title);
     changed = true;
@@ -142,32 +157,44 @@ function normalizeFile(file) {
     }
   }
 
-  if (!readValue(frontMatter, 'date')) {
-    frontMatter = writeValue(frontMatter, 'date', formatShanghaiDate(new Date()));
+  let date = readValue(frontMatter, 'date');
+  if (!date) {
+    date = formatShanghaiDate(new Date());
+    frontMatter = writeValue(frontMatter, 'date', date);
     changed = true;
   }
 
   if (!readValue(frontMatter, 'slug')) {
-    const slug = path.basename(file, '.md').replace(/\s+/g, '-');
-    frontMatter = writeValue(frontMatter, 'slug', slug);
+    frontMatter = writeValue(frontMatter, 'slug', makeSlug(fullPath, date));
+    changed = true;
+  }
+
+  if (!readValue(frontMatter, 'authors')) {
+    frontMatter = writeValue(frontMatter, 'authors', 'zzy');
+    changed = true;
+  }
+
+  // Accept the old Hugo/Hexo excerpt marker as well.
+  if (/<!--\s*more\s*-->/.test(body)) {
+    body = body.replace(/<!--\s*more\s*-->/g, TRUNCATE);
     changed = true;
   }
 
   const hasDescription = Boolean(readValue(frontMatter, 'description'));
-  const hasMarker = /<!--\s*more\s*-->/.test(body);
+  const hasMarker = /^\s*\{\s*\/\*\s*truncate\s*\*\/\s*\}\s*$/m.test(body);
   if (!hasDescription && !hasMarker) {
     const lines = body.split('\n');
     const index = findInsertIndex(lines);
     if (index !== -1) {
-      lines.splice(index, 0, '', MARKER);
+      lines.splice(index, 0, '', TRUNCATE);
       body = lines.join('\n');
       changed = true;
     }
   }
 
   body = body
-    .replace(/\n{3,}(<!--\s*more\s*-->)/g, '\n\n$1')
-    .replace(/(<!--\s*more\s*-->)\n{3,}/g, '$1\n\n')
+    .replace(/\n{3,}(\{\s*\/\*\s*truncate\s*\*\/\s*\})/g, '\n\n$1')
+    .replace(/(\{\s*\/\*\s*truncate\s*\*\/\s*\})\n{3,}/g, '$1\n\n')
     .replace(/^\n+/, '')
     .replace(/\s+$/, '') + '\n';
 
@@ -180,19 +207,31 @@ function normalizeFile(file) {
   return true;
 }
 
-if (!fs.existsSync(postsDir)) {
-  console.log('[normalize] content/posts 不存在，跳过');
-  process.exit(0);
+function collectPosts(dir) {
+  if (!fs.existsSync(dir)) return [];
+  const files = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      if (entry.name === 'node_modules' || entry.name.startsWith('.')) continue;
+      files.push(...collectPosts(fullPath));
+    } else if (
+      /\.mdx?$/i.test(entry.name) &&
+      !entry.name.startsWith('_') &&
+      !SKIP_FILES.has(entry.name)
+    ) {
+      files.push(fullPath);
+    }
+  }
+  return files;
 }
 
-const files = fs.readdirSync(postsDir)
-  .filter(file => file.endsWith('.md') && !file.startsWith('_'));
-
+const files = collectPosts(postsDir);
 let count = 0;
 for (const file of files) {
   if (normalizeFile(file)) {
     count++;
-    console.log(`[normalize] 已补全 ${file}`);
+    console.log(`[normalize] 已补全 ${path.relative(root, file)}`);
   }
 }
 

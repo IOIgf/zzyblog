@@ -1,0 +1,8 @@
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--lk-transition);
+}

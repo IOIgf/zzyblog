@@ -1,0 +1,54 @@
+.page {
+  padding: 2rem 1.5rem 4rem;
+}
+
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.card {
+  --card-padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.contactList {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+  list-style: none;
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--lk-radius-md, 12px);
+  color: var(--ifm-font-color-base);
+  text-decoration: none;
+  transition:
+    border-color var(--lk-transition, 0.2s ease),
+    background-color var(--lk-transition, 0.2s ease);
+}
+
+.contactLink:hover {
+  border-color: var(--ifm-color-primary);
+  background: var(--lk-color-primary-soft, var(--ifm-color-emphasis-100));
+  text-decoration: none;
+}
+
+.contactText {
+  margin-left: auto;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .contactText {
+    display: none;
+  }
+}

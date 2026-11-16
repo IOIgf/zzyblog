@@ -1,0 +1,67 @@
+import { type ReactNode } from 'react';
+import Link from '@docusaurus/Link';
+import { translate } from '@docusaurus/Translate';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Icon from '@lailai0916/ui/Icon';
+import Badge from '@lailai0916/ui/Badge';
+import { useVisitorTimeZone } from '@site/src/hooks/useVisitorTimeZone';
+import { formatLocalDate } from '@site/src/utils/dateTime';
+import styles from './styles.module.css';
+import shared from '../styles.module.css';
+
+// Bottom-of-article meta shared by blog posts and docs: tag chips on the left,
+// the view count + "last updated on …" pushed to the right. Blog posts render
+// the view count in their top meta bar, so they leave `views` empty here.
+interface MetaFooterProps {
+  tags: { to: string; label: string }[];
+  lastUpdatedAt?: number | string | null;
+  views?: ReactNode;
+}
+
+export default function MetaFooter({ tags, lastUpdatedAt, views }: MetaFooterProps) {
+  const {
+    i18n: { currentLocale },
+  } = useDocusaurusContext();
+  const timeZone = useVisitorTimeZone();
+
+  const hasTags = tags.length > 0;
+  const hasUpdated = lastUpdatedAt != null;
+  if (!hasTags && !hasUpdated && !views) return null;
+
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.meta}>
+        {hasTags && (
+          <div className={styles.tagList}>
+            {tags.map((tag) => (
+              <Link key={tag.to} to={tag.to} className={styles.tagChipLink}>
+                <Badge hoverable>{tag.label}</Badge>
+              </Link>
+            ))}
+          </div>
+        )}
+        {(views || hasUpdated) && (
+          <div className={styles.metaEnd}>
+            {views}
+            {hasUpdated && (
+              <span className={shared.metaItem}>
+                <Icon icon="lucide:history" width={14} height={14} />
+                <time dateTime={new Date(lastUpdatedAt!).toISOString()}>
+                  {translate(
+                    {
+                      id: 'components.article.lastUpdated',
+                      message: 'Last updated on {date}',
+                    },
+                    {
+                      date: formatLocalDate(lastUpdatedAt!, currentLocale, timeZone),
+                    }
+                  )}
+                </time>
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+    </footer>
+  );
+}
