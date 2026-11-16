@@ -69,12 +69,17 @@ export default function Insights() {
   if (!goatCounterConfig.endpoint) {
     missing.push('endpoint');
   }
-  if (!goatCounterConfig.apiHost) {
-    missing.push('apiHost');
+  if (!goatCounterConfig.proxyPath) {
+    if (!goatCounterConfig.apiHost) {
+      missing.push('apiHost');
+    }
+    if (!goatCounterConfig.apiKey) {
+      missing.push('apiKey');
+    }
   }
-  if (!goatCounterConfig.apiKey) {
-    missing.push('apiKey');
-  }
+
+  // 「查看完整面板」链接：优先用 dashboardUrl，其次回退到 apiHost。
+  const dashboardHref = goatCounterConfig.dashboardUrl || goatCounterConfig.apiHost;
 
   return (
     <Layout
@@ -90,10 +95,10 @@ export default function Insights() {
               id: 'pages.insights.subtitle',
               message: '本站的访问数据分析，数据由 GoatCounter 实时提供',
             })}
-            {insightsConfigured && (
+            {insightsConfigured && dashboardHref !== '' && (
               <>
                 {'　'}
-                <Link href={`${goatCounterConfig.apiHost}/`} className={styles.dashboardLink}>
+                <Link href={dashboardHref} className={styles.dashboardLink}>
                   <Icon icon="tabler:external-link" width={14} height={14} />
                   {translate({ id: 'pages.insights.dashboardLink', message: '查看完整面板' })}
                 </Link>
@@ -130,7 +135,11 @@ export default function Insights() {
                 <Link href="https://github.com/IOIgf/zzyblog/blob/main/src/config/goatcounter.ts">
                   src/config/goatcounter.ts
                 </Link>{' '}
-                填入 endpoint、apiHost 与 apiKey，并将 enabled 设为 true，然后重新构建发布。
+                填入 endpoint；把 API Key 放进仓库根目录的{' '}
+                <Link href="https://github.com/IOIgf/zzyblog/blob/main/functions/gc/%5B%5B...rest%5D%5D.js">
+                  functions/gc/[[...rest]].js
+                </Link>
+                （已内置），保持 proxyPath 为「/gc」，并将 enabled 设为 true，然后重新构建发布。
               </li>
             </ol>
             {missing.length > 0 && (
@@ -190,7 +199,9 @@ export default function Insights() {
                   <p className={styles.errorHint}>
                     {translate({
                       id: 'pages.insights.error.authHint',
-                      message: '请检查 src/config/goatcounter.ts 中的 apiKey 是否有效。',
+                      message:
+                        '请检查 API Key 是否有效：代理模式见 functions/gc/[[...rest]].js，' +
+                        '直连模式见 src/config/goatcounter.ts。',
                     })}
                   </p>
                 )}

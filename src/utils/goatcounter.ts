@@ -92,27 +92,46 @@ function apiBase(): string {
   return goatCounterConfig.apiHost.replace(/\/+$/, '');
 }
 
-async function apiGet<T>(path: string, params: Record<string, string | number>): Promise<T> {
-  const url = new URL(`${apiBase()}/api/v0${path}`);
+/** 是否走同域代理（proxyPath 非空）。 */
+function useProxy(): boolean {
+  return goatCounterConfig.proxyPath.length > 0;
+}
+
+/** 拼接查询串（encodeURIComponent，与 GoatCounter 对 start 等参数均兼容）。 */
+function qs(params: Record<string, string | number>): string {
+  const pairs: string[] = [];
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== '') {
-      url.searchParams.set(key, String(value));
+      pairs.push(`${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`);
     }
+  }
+  return pairs.length > 0 ? `?${pairs.join('&')}` : '';
+}
+
+async function apiGet<T>(path: string, params: Record<string, string | number>): Promise<T> {
+  const query = qs(params);
+  let url: string;
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+
+  if (useProxy()) {
+    // 同域代理：只请求自己域名（或绝对地址），Key 由代理在服务端附加。
+    const proxy = goatCounterConfig.proxyPath.replace(/\/+$/, '');
+    url = `${proxy}/api/v0${path}${query}`;
+  } else {
+    // 直连：浏览器跨域请求 GoatCounter，携带 Authorization。
+    url = `${apiBase()}/api/v0${path}${query}`;
+    headers.Authorization = `Bearer ${goatCounterConfig.apiKey}`;
   }
 
   let res: Response;
   try {
-    res = await fetch(url.toString(), {
-      headers: {
-        Authorization: `Bearer ${goatCounterConfig.apiKey}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    res = await fetch(url, { headers });
   } catch {
     throw new GoatCounterApiError(
       'network',
-      '无法连接 GoatCounter API（网络或跨域 CORS 错误）。若 GoatCounter 与本站不同域，' +
-        '可在 Web 服务器加一个转发到 GoatCounter 的代理，并让 apiHost 指向该代理。',
+      useProxy()
+        ? '无法通过本站 /gc 代理连接 GoatCounter API。请确认仓库根目录已包含 functions/gc/[[...rest]].js 并已重新部署。'
+        : '无法连接 GoatCounter API（网络或跨域 CORS 错误）。可改用同域代理：在仓库根目录添加 functions/gc/[[...rest]].js，并在 src/config/goatcounter.ts 中设置 proxyPath。',
     );
   }
 

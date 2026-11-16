@@ -9,7 +9,12 @@
  *    - 自托管：部署到你自己的域名，如 `https://stats.example.com`
  * 2. 创建 API Key（账号 → 右上角用户名 → API；只读权限即可）：
  *    https://goatcounter.com/help/api
- * 3. 把下面的字段填好并把 `enabled` 改为 `true`。
+ * 3. 二选一：
+ *    - 代理模式（推荐）：填 `proxyPath`（如 `'/gc'`），API Key 放在
+ *      `functions/gc/[[...rest]].js` 里由 Cloudflare 边缘服务器附加，
+ *      洞察页只请求自己域名，避开跨域与广告拦截；
+ *    - 直连模式：填 `apiHost` 与 `apiKey`，由浏览器直接请求 GoatCounter。
+ * 4. 把 `enabled` 改为 `true`。
  *
  * 填好后：
  * - 全站会自动上报访问（通过注入官方 count.js，含 SPA 路由切换）；
@@ -31,15 +36,20 @@ export type GoatCounterConfig = {
    */
   endpoint: string;
   /**
-   * API 主机（不带 `/api/v0` 后缀）。
-   * 云版：`https://<code>.goatcounter.com`；
-   * 自托管：`https://你的域名`。
-   * 若浏览器直连被 CORS 拦截，可在 Web 服务器加一个转发到 GoatCounter
-   * 的 `/gc-api` 代理并指向它（见「洞察」页的错误提示）。
+   * 直连模式：API 主机（不带 `/api/v0` 后缀，如 `https://<code>.goatcounter.com`）。
+   * 使用代理模式时留空即可。
    */
   apiHost: string;
-  /** API Key（账号 → API 中创建，只读即可）。 */
+  /** 直连模式：API Key（账号 → API 中创建，只读即可）。使用代理模式时留空。 */
   apiKey: string;
+  /**
+   * 代理模式：同域（或绝对地址）的代理前缀，如 `'/gc'`。
+   * 需配合仓库根目录 `functions/gc/[[...rest]].js`（Cloudflare Pages 函数）。
+   * 留空则走直连模式（需要同时提供 apiHost 与 apiKey）。
+   */
+  proxyPath: string;
+  /** 「查看完整面板」链接，指向 GoatCounter 自身的仪表盘。 */
+  dashboardUrl: string;
   /** 是否允许本地（localhost/内网）请求上报，方便本地调试；默认 true。 */
   allowLocal: boolean;
 };
@@ -48,8 +58,11 @@ export const goatCounterConfig: GoatCounterConfig = {
   enabled: true,
   scriptSrc: 'https://gc.zgo.at/count.js',
   endpoint: 'https://ioigf.goatcounter.com/count',
-  apiHost: 'https://ioigf.goatcounter.com',
-  apiKey: 'q4iela3kwyulj0ye498ld89x22bk9x6yzpuok198g5vvcoaokr',
+  // 代理模式：Key 由 functions/gc/[[...rest]].js 在服务端附加，客户端不下发。
+  apiHost: '',
+  apiKey: '',
+  proxyPath: '/gc',
+  dashboardUrl: 'https://ioigf.goatcounter.com',
   allowLocal: true,
 };
 
@@ -59,8 +72,14 @@ export function isTrackingConfigured(): boolean {
   return enabled && endpoint.length > 0;
 }
 
-/** 是否已具备从 API 拉取数据所需的配置。 */
+/** 是否已具备从 API 拉取数据所需的配置（代理模式或直连模式其一）。 */
 export function isInsightsConfigured(): boolean {
-  const { enabled, apiHost, apiKey } = goatCounterConfig;
-  return enabled && apiHost.length > 0 && apiKey.length > 0;
+  const { enabled, apiHost, apiKey, proxyPath } = goatCounterConfig;
+  if (!enabled) {
+    return false;
+  }
+  if (proxyPath.length > 0) {
+    return true;
+  }
+  return apiHost.length > 0 && apiKey.length > 0;
 }
