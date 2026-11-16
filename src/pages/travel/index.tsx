@@ -1,7 +1,6 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import { translate } from '@docusaurus/Translate';
-import { useBaseUrl } from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
 export default function Travel() {

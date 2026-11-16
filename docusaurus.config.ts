@@ -108,6 +108,7 @@ const config: Config = {
         { label: '博客', to: '/blog', position: 'left' },
         { label: '标签', to: '/blog/tags', position: 'left' },
         { label: '归档', to: '/blog/archive', position: 'left' },
+        { label: '洞察', to: '/insights', position: 'left' },
         { label: '关于', to: '/about', position: 'left' },
         {
           href: 'https://github.com/IOIgf',
@@ -125,6 +126,7 @@ const config: Config = {
             { label: '博客', to: '/blog' },
             { label: '标签', to: '/blog/tags' },
             { label: '归档', to: '/blog/archive' },
+            { label: '洞察', to: '/insights' },
           ],
         },
         {
@@ -166,6 +168,7 @@ const config: Config = {
   clientModules: [
     require.resolve('./src/clientModules/consoleSignature.ts'),
     require.resolve('./src/clientModules/katexCopyTex.ts'),
+    require.resolve('./src/clientModules/goatcounter.ts'),
   ],
 
   themes: [

@@ -1,0 +1,149 @@
+/* 洞察页图表组件的样式（TrendChart / BarList）。 */
+
+.chartWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+}
+
+.gridLine {
+  stroke: var(--ifm-color-emphasis-200);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.axisLabel {
+  fill: var(--ifm-color-content-secondary);
+  font-size: 11px;
+}
+
+.area {
+  fill: var(--ifm-color-primary);
+  opacity: 0.12;
+}
+
+.seriesViews,
+.dotViews {
+  stroke: var(--ifm-color-primary);
+  fill: var(--ifm-color-primary);
+}
+
+.seriesViews {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.seriesVisitors,
+.dotVisitors {
+  stroke: #14b8a6;
+  fill: #14b8a6;
+}
+
+.seriesVisitors {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.hitArea {
+  fill: transparent;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--ifm-color-content-secondary);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.swatchViews {
+  background: var(--ifm-color-primary);
+}
+
+.swatchVisitors {
+  background: #14b8a6;
+}
+
+.barList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: minmax(60px, 34%) 1fr 52px;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.barLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ifm-color-content-secondary);
+}
+
+.barLabel :global(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.barLabel :global(a):hover {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+}
+
+.barTrack {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ifm-color-emphasis-200);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--ifm-color-primary);
+  transition: width 0.4s ease;
+}
+
+.barValue {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ifm-color-content-secondary);
+}
+
+.empty {
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.9rem;
+}
