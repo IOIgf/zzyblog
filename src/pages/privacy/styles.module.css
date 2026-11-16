@@ -1,0 +1,10 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.placeholder {
+  color: var(--ifm-color-content-secondary);
+  font-style: italic;
+}
