@@ -136,8 +136,8 @@ export default function Insights() {
                   src/config/goatcounter.ts
                 </Link>{' '}
                 填入 endpoint；把 API Key 放进仓库根目录的{' '}
-                <Link href="https://github.com/IOIgf/zzyblog/blob/main/functions/gc/%5B...rest%5D.js">
-                  functions/gc/[...rest].js
+                <Link href="https://github.com/IOIgf/zzyblog/blob/main/functions/gc/stats.js">
+                  functions/gc/stats.js
                 </Link>
                 （已内置），保持 proxyPath 为「/gc」，并将 enabled 设为 true，然后重新构建发布。
               </li>
@@ -200,7 +200,7 @@ export default function Insights() {
                     {translate({
                       id: 'pages.insights.error.authHint',
                       message:
-                        '请检查 API Key 是否有效：代理模式见 functions/gc/[...rest].js，' +
+                        '请检查 API Key 是否有效：代理模式见 functions/gc/stats.js，' +
                         '直连模式见 src/config/goatcounter.ts。',
                     })}
                   </p>

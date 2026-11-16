@@ -114,9 +114,10 @@ async function apiGet<T>(path: string, params: Record<string, string | number>):
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
 
   if (useProxy()) {
-    // 同域代理：只请求自己域名（或绝对地址），Key 由代理在服务端附加。
+    // 同域代理：只请求自己域名（或绝对地址），API 子路径走 api 查询参数，
+    // Key 由代理（functions/gc/stats.js）在服务端附加。
     const proxy = goatCounterConfig.proxyPath.replace(/\/+$/, '');
-    url = `${proxy}/api/v0${path}${query}`;
+    url = `${proxy}/stats?api=${encodeURIComponent(path)}${query ? `&${query.slice(1)}` : ''}`;
   } else {
     // 直连：浏览器跨域请求 GoatCounter，携带 Authorization。
     url = `${apiBase()}/api/v0${path}${query}`;
@@ -130,8 +131,8 @@ async function apiGet<T>(path: string, params: Record<string, string | number>):
     throw new GoatCounterApiError(
       'network',
       useProxy()
-        ? '无法通过本站 /gc 代理连接 GoatCounter API。请确认仓库根目录已包含 functions/gc/[...rest].js 并已重新部署。'
-        : '无法连接 GoatCounter API（网络或跨域 CORS 错误）。可改用同域代理：在仓库根目录添加 functions/gc/[...rest].js，并在 src/config/goatcounter.ts 中设置 proxyPath。',
+        ? '无法通过本站 /gc 代理连接 GoatCounter API。请确认仓库根目录已包含 functions/gc/stats.js 并已重新部署。'
+        : '无法连接 GoatCounter API（网络或跨域 CORS 错误）。可改用同域代理：在仓库根目录添加 functions/gc/stats.js，并在 src/config/goatcounter.ts 中设置 proxyPath。',
     );
   }
 
