@@ -11,7 +11,7 @@ import SearchField from '@lailai0916/ui/SearchField';
 import DataState from '@lailai0916/ui/DataState';
 import { useVisitorTimeZone } from '@site/src/hooks/useVisitorTimeZone';
 import { getDateKey } from '@site/src/utils/dateTime';
-import { getAllBlogItems, getAllPostMetadata, loadOfficialTags } from '@site/src/utils/blogData';
+import { getAllBlogItems, getAllDocItems, getAllPostMetadata, loadOfficialTags } from '@site/src/utils/blogData';
 import { TagChipList } from '../BlogUI';
 import BlogScaffold from '../Scaffold';
 import { BlogArchiveList } from '../ArchiveList';
@@ -128,11 +128,19 @@ export default function BlogArchive({
     []
   );
   const allPosts = useMemo<readonly PostLike[]>(
-    () =>
-      posts ??
-      getAllBlogItems(localeKey).map(({ date, permalink, title }) => ({
+    () => {
+      const base =
+        posts ??
+        getAllBlogItems(localeKey).map(({ date, permalink, title }) => ({
+          metadata: { date, permalink, title },
+        }));
+      // Algorithm notes live in /docs: surface them in the archive under
+      // their original publication date (docs front matter `date`).
+      const docItems = getAllDocItems(localeKey).map(({ date, permalink, title }) => ({
         metadata: { date, permalink, title },
-      })),
+      }));
+      return [...base, ...docItems];
+    },
     [posts, localeKey]
   );
   const years = useMemo(() => {

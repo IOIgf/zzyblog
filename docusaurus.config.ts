@@ -185,6 +185,7 @@ const config: Config = {
   plugins: [
     require.resolve('./src/plugins/externalFonts/index.ts'),
     require.resolve('./src/plugins/blogCatalog/index.ts'),
+    require.resolve('./src/plugins/docsCatalog/index.ts'),
   ],
 };
 

@@ -32,6 +32,23 @@ export function getAllBlogItems(locale?: string): BlogPostMetadataSummary[] {
   return getAllPostMetadata().filter((post) => post.permalink.startsWith(prefix) && !post.unlisted);
 }
 
+interface DocCatalogEntry {
+  id: string;
+  permalink: string;
+  title: string;
+  date: string;
+}
+
+/**
+ * Docs catalog entries. Docs without an explicit `date` front matter field
+ * (e.g. section index pages) are not part of the archive.
+ */
+export function getAllDocItems(locale?: string): DocCatalogEntry[] {
+  const prefix = locale ? `/${locale}/docs/` : '/docs/';
+  const entries = require('@generated/docs-catalog/default/docs.json') as DocCatalogEntry[];
+  return entries.filter((doc) => doc.permalink.startsWith(prefix) && Boolean(doc.date));
+}
+
 /**
  * Read the official tag list, preserving Docusaurus' default ordering.
  */
