@@ -182,20 +182,27 @@ async function apiGet<T>(path: string, params: Record<string, string | number>):
 /** 建站以来的统计起点（GoatCounter 站点最早也不会早于这个时间）。 */
 const ALL_TIME_START = '2000-01-01T00:00:00.000Z';
 
+/**
+ * GoatCounter 的 `day` 字段以及 `start` 参数都按其站点时区（默认 UTC）
+ * 解释。所有日期必须以 UTC 计算，不能用本地时区：否则在 UTC+8 的浏览器上，
+ * 本地 00:00 会变成前一天 16:00Z，`toISOString().slice(0, 10)` 就会少一天，
+ * 导致趋势图整天数为 0。
+ */
+
+/** 返回今天（UTC）0 点的 ISO 时间戳，daysAgo 天前则往前推。 */
 function startOfDay(daysAgo: number): string {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  d.setDate(d.getDate() - daysAgo);
+  const now = new Date();
+  const d = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysAgo)
+  );
   return d.toISOString();
 }
 
+/** 返回以 UTC 为准、从 days 天前到今天的 `YYYY-MM-DD` 日期序列。 */
 function dateRange(days: number): string[] {
   const daysList: string[] = [];
   for (let i = days - 1; i >= 0; i -= 1) {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    d.setDate(d.getDate() - i);
-    daysList.push(d.toISOString().slice(0, 10));
+    daysList.push(startOfDay(i).slice(0, 10));
   }
   return daysList;
 }

@@ -290,7 +290,9 @@ export default function SearchBar({ handleSearchBarToggle, }) {
         // See https://github.com/easyops-cn/docusaurus-search-local/issues/92
         // Code blocks will be re-rendered after this `useEffect` ran.
         // So we make the marking run after a macro task.
-        setTimeout(() => {
+        // Clean up on re-run/unmount: a stale timer would unmark the new page
+        // and reset the search input to an old query after a quick navigation.
+        const highlightTimer = setTimeout(() => {
             const root = document.querySelector("article");
             if (!root) {
                 return;
@@ -306,6 +308,7 @@ export default function SearchBar({ handleSearchBarToggle, }) {
             setInputValue(keywords.join(" "));
             search.current?.autocomplete.setVal(keywords.join(" "));
         });
+        return () => clearTimeout(highlightTimer);
     }, [isBrowser, location.search, location.pathname]);
     const [focused, setFocused] = useState(false);
     const onInputFocus = useCallback(() => {

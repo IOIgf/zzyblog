@@ -28,12 +28,13 @@ export async function onRequest(context) {
   const { request, env } = context;
   const url = new URL(request.url);
 
-  // 预检请求。
+  // 同源请求（本站「洞察」页）不需要 CORS 头。这里不返回
+  // Access-Control-Allow-Origin: *，避免任意第三方站点借这个代理读取本站统计
+  // 数据、消耗上游配额。OPTIONS 只作为浏览器预检的兜底，不开放跨域来源。
   if (request.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
       headers: {
-        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Max-Age': '86400',
@@ -46,6 +47,30 @@ export async function onRequest(context) {
       status: 405,
       headers: { 'Content-Type': 'application/json' },
     });
+  }
+
+  // 只服务本站发起的请求：同源 fetch 会带 Origin/Referer，二者的 host 必须与
+  // 本站 host 一致。直接打开 /gc/stats（如 curl）没有这两个头，允许调试。
+  const origin = request.headers.get('Origin');
+  const referer = request.headers.get('Referer');
+  for (const header of [origin, referer]) {
+    if (header) {
+      let host;
+      try {
+        host = new URL(header).host;
+      } catch {
+        return new Response(JSON.stringify({ error: 'bad origin' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      if (host !== url.host) {
+        return new Response(JSON.stringify({ error: 'forbidden' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    }
   }
 
   // api 子路径必须命中白名单，如 /stats/total。
@@ -84,7 +109,6 @@ export async function onRequest(context) {
       headers: {
         'Content-Type': upstream.headers.get('Content-Type') || 'application/json',
         'Cache-Control': 'no-store',
-        'Access-Control-Allow-Origin': '*',
       },
     });
   } catch (error) {

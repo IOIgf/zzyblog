@@ -39,7 +39,7 @@ if (ExecutionEnvironment.canUseDOM && isTrackingConfigured()) {
     script.setAttribute('data-goatcounter', goatCounterConfig.endpoint);
     document.head.appendChild(script);
 
-    const currentPath = () => location.pathname + location.search;
+    const currentPath = () => location.pathname + location.search + location.hash;
 
     function track(): void {
       const gc = window.goatcounter;
