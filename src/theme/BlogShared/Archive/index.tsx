@@ -99,7 +99,7 @@ function TagsSection({
     >
       <TagChipList
         items={sorted.map((tag) => ({
-          to: tag.permalink === activePermalink ? archiveUrl : tag.permalink,
+          to: tag.permalink,
           label: tag.label,
           count: tag.count,
           active: tag.permalink === activePermalink,
