@@ -1,16 +1,14 @@
 ---
-title: "树上 LCA"
-date: 2026-07-31T19:00:25+08:00
-authors: zzy
-tags: [algorithm]
-slug: "/2026/07/31/树上-LCA/"
-description: "用倍增法求树上最近公共祖先（LCA）。"
+title: 树上 LCA
+description: 用倍增法求树上最近公共祖先（LCA），预处理与查询均为对数或线性复杂度。
+summary: 倍增法求 LCA：设 f_{i,j} 为第 i 个点往上跳 2^j 个点所到的点，f_{i,0} 为其父亲，递推 f_{i,j}=f_{f_{i,j-1},j-1}。dfs 预处理 f 与 deep，O(n)；预处理 f 数组 O(nlogn)；查询时先把 u、v 调整到同一深度，再一起上跳，O(logn)。附 P3379 模板代码。
 ---
+
+## 简介
+
 **倍增法**
 
 设 $f_{i,j}$ 为第 $i$ 个点往上跳 $2^j$ 个点所到的点，显然 $f_{i,0}$ 为第 $i$ 个点的父亲。
-
-{/* truncate */}
 
 对于点 $u,v$，我们只需要将它们调整至同一深度，然后一起往上跳（不能重合）直到不能再跳，则最后它们的父亲就是 $lca(u,v)$。
 
@@ -20,13 +18,13 @@ description: "用倍增法求树上最近公共祖先（LCA）。"
 
 所以得到递推式：
 
-$f_{i,j}=f_{f_{i,j-1},j-1}$
+$$f_{i,j}=f_{f_{i,j-1},j-1}$$
 
-预处理 $f$ 数组复杂度为 $O(n log n)$
+预处理 $f$ 数组复杂度为 $O(n\log n)$
 
-查询复杂度为 $O(log n)$
+查询复杂度为 $O(\log n)$
 
-**代码**
+## 代码
 
 ```cpp
 #include<bits/stdc++.h>
@@ -81,4 +79,6 @@ int main(){
 }
 ```
 
-[P3379 【模板】最近公共祖先（LCA）](https://www.luogu.com.cn/problem/P3379)
+## 相关题目
+
+- [P3379 【模板】最近公共祖先（LCA）](https://www.luogu.com.cn/problem/P3379)

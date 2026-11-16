@@ -1,6 +1,7 @@
 import MDXComponents from '@theme-original/MDXComponents';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import DocCardList from '@theme/DocCardList';
 import { type ComponentProps } from 'react';
 import clsx from 'clsx';
 
@@ -20,6 +21,7 @@ export default {
   hr: MarkdownDivider,
   Tabs,
   TabItem,
+  DocCardList,
   GitHub,
   Quote,
   Divider,

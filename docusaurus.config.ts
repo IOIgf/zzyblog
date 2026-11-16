@@ -47,7 +47,13 @@ const config: Config = {
     [
       'classic',
       {
-        docs: false,
+        docs: {
+          sidebarPath: './sidebars.ts',
+          showLastUpdateTime: true,
+          editUrl: 'https://github.com/IOIgf/zzyblog/tree/main/',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
+        },
         blog: {
           routeBasePath: 'blog',
           blogTitle: '博客',
@@ -98,6 +104,7 @@ const config: Config = {
       },
       items: [
         { label: '首页', to: '/', position: 'left' },
+        { type: 'docSidebar', sidebarId: 'algoSidebar', position: 'left', label: '算法' },
         { label: '博客', to: '/blog', position: 'left' },
         { label: '标签', to: '/blog/tags', position: 'left' },
         { label: '归档', to: '/blog/archive', position: 'left' },
@@ -114,6 +121,7 @@ const config: Config = {
         {
           title: '内容',
           items: [
+            { label: '算法', to: '/docs/algo' },
             { label: '博客', to: '/blog' },
             { label: '标签', to: '/blog/tags' },
             { label: '归档', to: '/blog/archive' },
@@ -168,7 +176,7 @@ const config: Config = {
         language: ['zh'],
         highlightSearchTermsOnTargetPage: true,
         explicitSearchResultPath: true,
-        indexDocs: false,
+        indexDocs: true,
         blogRouteBasePath: '/blog',
       },
     ],

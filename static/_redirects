@@ -1,18 +1,31 @@
 # Keep the old Hexo/Hugo URLs working.
-# Posts move to /blog/...; Giscus terms are still derived from the old paths,
-# so the existing discussions follow the posts.
+# OI notes now live in the /docs/algo section: legacy root and /blog URLs
+# redirect to the new doc pages. Giscus terms for those docs come from the
+# legacy paths (see src/theme/DocItem/Footer), so old discussions follow.
 
-# Post URLs (plain UTF-8 and percent-encoded forms).
-/2026/07/31/ST表-RMQ/ /blog/2026/07/31/ST表-RMQ/ 301
-/2026/07/31/ST%E8%A1%A8-RMQ/ /blog/2026/07/31/ST%E8%A1%A8-RMQ/ 301
-/2026/07/31/前缀和-二维前缀和/ /blog/2026/07/31/前缀和-二维前缀和/ 301
-/2026/07/31/%E5%89%8D%E7%BC%80%E5%92%8C-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/ /blog/2026/07/31/%E5%89%8D%E7%BC%80%E5%92%8C-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/ 301
-/2026/07/31/树上-LCA/ /blog/2026/07/31/树上-LCA/ 301
-/2026/07/31/%E6%A0%91%E4%B8%8A-LCA/ /blog/2026/07/31/%E6%A0%91%E4%B8%8A-LCA/ 301
-/2026/08/04/线段树/ /blog/2026/08/04/线段树/ 301
-/2026/08/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/ /blog/2026/08/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/ 301
+# OI note URLs (plain UTF-8 and percent-encoded forms) -> docs.
+/2026/07/31/ST表-RMQ/ /docs/algo/ds/sparse-table/ 301
+/2026/07/31/ST%E8%A1%A8-RMQ/ /docs/algo/ds/sparse-table/ 301
+/2026/07/31/前缀和-二维前缀和/ /docs/algo/basic/prefix-sum/ 301
+/2026/07/31/%E5%89%8D%E7%BC%80%E5%92%8C-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/ /docs/algo/basic/prefix-sum/ 301
+/2026/07/31/树上-LCA/ /docs/algo/graph/tree/lca/ 301
+/2026/07/31/%E6%A0%91%E4%B8%8A-LCA/ /docs/algo/graph/tree/lca/ 301
+/2026/08/04/线段树/ /docs/algo/ds/seg/ 301
+/2026/08/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/ /docs/algo/ds/seg/ 301
+
+# /blog/... URLs that used to point to the OI notes.
+/blog/2026/07/31/ST表-RMQ/ /docs/algo/ds/sparse-table/ 301
+/blog/2026/07/31/ST%E8%A1%A8-RMQ/ /docs/algo/ds/sparse-table/ 301
+/blog/2026/07/31/前缀和-二维前缀和/ /docs/algo/basic/prefix-sum/ 301
+/blog/2026/07/31/%E5%89%8D%E7%BC%80%E5%92%8C-%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C/ /docs/algo/basic/prefix-sum/ 301
+/blog/2026/07/31/树上-LCA/ /docs/algo/graph/tree/lca/ 301
+/blog/2026/07/31/%E6%A0%91%E4%B8%8A-LCA/ /docs/algo/graph/tree/lca/ 301
+/blog/2026/08/04/线段树/ /docs/algo/ds/seg/ 301
+/blog/2026/08/04/%E7%BA%BF%E6%AE%B5%E6%A0%91/ /docs/algo/ds/seg/ 301
+
+# The essay stays a blog post.
 /2026/11/13/论土豆/ /blog/2026/11/13/论土豆/ 301
-/2026/11/13/%E8%AE%BA%E5%9C%9F%E8%B1%86/ /blog/2026/11/13/%E8%AE%BA%E5%9C%9F%E8%B1%86/ 301
+/2026/11/13/%E8%AE%BA%E5%9C%9F%E8%B1%86/ /blog/2026/11/13/论土豆/ 301
 
 # Old taxonomy and archive URLs.
 /tags/ /blog/tags/ 301

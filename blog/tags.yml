@@ -1,3 +1,9 @@
 algorithm:
   label: 算法
   description: 算法与数据结构学习笔记
+essay:
+  label: 随笔
+  description: 随笔与杂记
+record:
+  label: 记录
+  description: 迁移、更新与站点记录
